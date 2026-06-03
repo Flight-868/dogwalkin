@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dog Walking &amp; Pet Sitting | Stuyvesant Town · East Village · Gramercy | Dog Walkin.com</title>
+  <meta name="description" content="Professional dog walking and cat sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days, same-day requests welcome. Call 646-580-8877.">
+
+  <link rel="canonical" href="https://dogwalkin.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Dog Walkin.com">
+  <meta property="og:title"       content="Dog Walking &amp; Pet Sitting | Stuyvesant Town · East Village · Gramercy | Dog Walkin.com">
+  <meta property="og:description" content="Professional dog walking and cat sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days, same-day requests welcome. Call 646-580-8877.">
+  <meta property="og:url"         content="https://dogwalkin.com/">
+  <meta property="og:image"       content="https://dogwalkin.com/brand_assets/og-image.jpg">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="Dog Walking &amp; Pet Sitting | Stuyvesant Town · East Village · Gramercy | Dog Walkin.com">
+  <meta name="twitter:description" content="Professional dog walking and cat sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days, same-day requests welcome. Call 646-580-8877.">
+  <meta name="twitter:image"       content="https://dogwalkin.com/brand_assets/og-image.jpg">
+
+  <!-- LocalBusiness schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Dog Walkin.com",
+    "alternateName": "Coopertown Dog Walking",
+    "description": "Professional dog walking and pet sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days a year, same-day requests welcome.",
+    "url": "https://dogwalkin.com",
+    "telephone": "+16465808877",
+    "email": "coopertowndogwalking@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10009",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 40.7282,
+      "longitude": -73.9782
+    },
+    "areaServed": [
+      { "@type": "Place", "name": "Stuyvesant Town" },
+      { "@type": "Place", "name": "East Village" },
+      { "@type": "Place", "name": "Gramercy" },
+      { "@type": "Place", "name": "Murray Hill" }
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "06:30",
+      "closes": "20:30"
+    },
+    "sameAs": [
+      "https://www.instagram.com/coopertowndogwalking/",
+      "https://www.facebook.com/112056688654872"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/brand_assets/dogwalkin_logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/style.css">
+
+  <style>
+    /* ── Hero ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 90vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('/brand_assets/photos/hero-001.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(10,10,10,0.82) 0%,
+        rgba(10,10,10,0.45) 45%,
+        rgba(10,10,10,0.15) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+      padding: 0 2rem 5rem;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #00C4B4;
+      margin-bottom: 1rem;
+    }
+    .hero h1 {
+      color: #fff;
+      font-size: clamp(2.2rem, 5vw, 3.75rem);
+      line-height: 1.1;
+      margin-bottom: 1.25rem;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .hero-sub {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.82);
+      line-height: 1.6;
+      margin-bottom: 2.25rem;
+      max-width: 560px;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── Services cards ───────────────────────────────────── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .service-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(26,26,26,0.07), 0 8px 24px rgba(0,196,180,0.06);
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 6px 20px rgba(26,26,26,0.1), 0 16px 40px rgba(0,196,180,0.12);
+    }
+    .service-card-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+    }
+    .service-card-body {
+      padding: 1.5rem;
+      background: #E0F7F5;
+    }
+    .service-card-body .eyebrow { margin-bottom: 0.5rem; }
+    .service-card-body h3 {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+      color: #1A1A1A;
+    }
+    .service-card-body p {
+      font-size: 0.9rem;
+      color: #5C5C5C;
+      line-height: 1.55;
+    }
+    .service-card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #00897B;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* ── Why us pillars ───────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .why-card {
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(26,26,26,0.05), 0 4px 20px rgba(0,196,180,0.07);
+    }
+    .why-icon {
+      width: 56px;
+      height: 56px;
+      background: #E0F7F5;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-size: 1.6rem;
+    }
+    .why-card h3 { font-size: 1.15rem; margin-bottom: 0.6rem; }
+    .why-card p  { font-size: 0.9rem; color: #5C5C5C; line-height: 1.55; }
+
+    /* ── Reviews ──────────────────────────────────────────── */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 8px rgba(26,26,26,0.06), 0 4px 20px rgba(212,154,60,0.08);
+    }
+    .review-card .stars { font-size: 1rem; margin-bottom: 0.75rem; display: block; }
+    .review-card blockquote {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 0.975rem;
+      color: #1A1A1A;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .review-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #5C5C5C;
+    }
+
+    /* ── Instagram grid ───────────────────────────────────── */
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .instagram-grid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s ease, transform 0.3s ease;
+    }
+    .instagram-grid img:hover { opacity: 0.88; transform: scale(1.03); }
+    .instagram-cta { text-align: center; margin-top: 1.75rem; }
+
+    /* ── Booking CTA strip ────────────────────────────────── */
+    .cta-strip {
+      position: relative;
+      background: #00C4B4;
+      padding: 5rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .cta-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 20% 50%, rgba(255,255,255,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse at 80% 50%, rgba(0,137,123,0.3) 0%, transparent 60%);
+    }
+    .cta-strip > * { position: relative; z-index: 1; }
+    .cta-strip .eyebrow { color: rgba(255,255,255,0.7); margin-bottom: 0.75rem; }
+    .cta-strip h2 { color: #fff; font-size: clamp(1.75rem, 3.5vw, 2.75rem); margin-bottom: 0.75rem; }
+    .cta-strip p  { color: rgba(255,255,255,0.82); font-size: 1.05rem; margin-bottom: 2rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+
+    @media (max-width: 900px) {
+      .services-grid, .why-grid, .reviews-grid { grid-template-columns: 1fr; }
+      .instagram-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="nav-root"></div>
+
+<main>
+
+  <!-- ① HERO -->
+  <section class="hero" aria-label="Hero">
+    <div class="hero-bg" id="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow fade-up">Stuyvesant Town · East Village · Gramercy</p>
+      <h1 class="fade-up delay-1">Dog walking and pet sitting in your neighborhood.</h1>
+      <p class="hero-sub fade-up delay-2">"Born and raised in Stuyvesant Town, we're not just your dog walkers — we're your neighbors."</p>
+      <div class="hero-actions fade-up delay-3">
+        <a href="/contact" class="btn btn-primary">Book a Free Paws &amp; Chat</a>
+        <a href="/services" class="btn btn-outline">See Pricing</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ② SERVICES OVERVIEW -->
+  <section class="section" style="background:#F7F7F5;">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom:0.5rem;">What we offer</p>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.25rem);margin-bottom:2.5rem;">Care for every kind of paw.</h2>
+      <div class="services-grid">
+
+        <a href="/services" class="service-card fade-up">
+          <img src="/brand_assets/photos/dog-038.jpg" alt="Four happy dogs on a group walk in New York City" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <p class="eyebrow">From $15</p>
+            <h3>Dog Walking</h3>
+            <p>Solo and group walks, potty breaks, and adventures — 6:30 am to 8:30 pm, seven days a week.</p>
+            <span class="service-card-link">View pricing →</span>
+          </div>
+        </a>
+
+        <a href="/services" class="service-card fade-up delay-1">
+          <img src="/brand_assets/photos/cat-007.jpg" alt="Tortoiseshell cat basking in sunlight by a window" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <p class="eyebrow">From $25</p>
+            <h3>Cat Visits</h3>
+            <p>Feeding, litter, playtime, medicine, brushing, and a whole lot of love while you're away.</p>
+            <span class="service-card-link">View pricing →</span>
+          </div>
+        </a>
+
+        <a href="/contact" class="service-card fade-up delay-2">
+          <img src="/brand_assets/photos/dog-029.jpg" alt="Golden retriever relaxing in a sunny park" class="service-card-img" loading="lazy">
+          <div class="service-card-body">
+            <p class="eyebrow">Contact for rates</p>
+            <h3>Pet Sitting</h3>
+            <p>Extended in-home care when you need more than a walk. Tailored to your pet's routine.</p>
+            <span class="service-card-link">Get in touch →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ WHY US -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom:0.5rem;">Why Dog Walkin.com</p>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.25rem);margin-bottom:2.5rem;">Small-town care in the big city.</h2>
+      <div class="why-grid">
+
+        <div class="why-card fade-up">
+          <div class="why-icon">📅</div>
+          <h3>Available 365 Days</h3>
+          <p>Holidays included. Same-day requests welcome. We're here when your schedule changes.</p>
+        </div>
+
+        <div class="why-card fade-up delay-1">
+          <div class="why-icon">🏠</div>
+          <h3>Born &amp; Raised Here</h3>
+          <p>Stuyvesant Town is home. We know every path, every dog run, every doorman by name.</p>
+        </div>
+
+        <div class="why-card fade-up delay-2">
+          <div class="why-icon">🐾</div>
+          <h3>Genuine Animal Lovers</h3>
+          <p>Pets aren't clients — they're family. We care for them the way we'd want our own cared for.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ REVIEWS -->
+  <section class="section" style="background:#F7F7F5;">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom:0.5rem;">What neighbors say</p>
+      <h2 style="font-size:clamp(1.6rem,3vw,2.25rem);margin-bottom:2.5rem;">Trusted by the StuyTown community.</h2>
+      <div class="reviews-grid">
+
+        <div class="review-card fade-up">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"David is incredible. Our anxious rescue completely trusts him — she literally sprints to the door when she hears him coming. Total peace of mind."</blockquote>
+          <p class="review-author">— Sarah M., Stuyvesant Town</p>
+        </div>
+
+        <div class="review-card fade-up delay-1">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Reliable, caring, and they really know this neighborhood. Been using Dog Walkin.com for two years and I'd never go anywhere else."</blockquote>
+          <p class="review-author">— James K., Stuyvesant Town</p>
+        </div>
+
+        <div class="review-card fade-up delay-2">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"They remembered every detail about my cats — their feeding schedule, which one hides under the bed. Came home to two very happy, very spoiled kitties."</blockquote>
+          <p class="review-author">— Priya L., East Village</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ INSTAGRAM FEED -->
+  <section class="section-sm" style="background:#fff;">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom:0.5rem;text-align:center;">@coopertowndogwalking</p>
+      <h2 style="font-size:clamp(1.4rem,2.5vw,1.875rem);margin-bottom:1.75rem;text-align:center;">Life on the leash.</h2>
+      <div class="instagram-grid">
+        <img src="/brand_assets/photos/dog-012.jpg" alt="Black lab in Stuyvesant Town cherry blossoms" loading="lazy">
+        <img src="/brand_assets/photos/dog-025.jpg" alt="Bernedoodle at Washington Square Park in the snow" loading="lazy">
+        <img src="/brand_assets/photos/dog-004.jpg" alt="Chocolate lab puppy at Washington Square Arch" loading="lazy">
+        <img src="/brand_assets/photos/dog-018.jpg" alt="Bearded collie with NYC skyline at the waterfront" loading="lazy">
+        <img src="/brand_assets/photos/dog-008.jpg" alt="Red doodle at the fountain" loading="lazy">
+        <img src="/brand_assets/photos/dog-028.jpg" alt="Corgi looking up on the sidewalk" loading="lazy">
+        <img src="/brand_assets/photos/cat-007.jpg" alt="Tortoiseshell cat by a sunny window" loading="lazy">
+        <img src="/brand_assets/photos/dog-030.jpg" alt="Golden retriever on a NYC sidewalk" loading="lazy">
+      </div>
+      <div class="instagram-cta">
+        <a href="https://www.instagram.com/coopertowndogwalking/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">
+          Follow on Instagram ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ BOOKING CTA STRIP -->
+  <section class="cta-strip" aria-label="Book a free meet and greet">
+    <p class="eyebrow">No commitment · 30 minutes · Free</p>
+    <h2>Meet us first — it's free.</h2>
+    <p>Book a Paws &amp; Chat and introduce us to your pet. We'll answer every question, no pressure, no rush.</p>
+    <a href="/contact" class="btn" style="background:#fff;color:#00897B;font-weight:700;box-shadow:0 4px 20px rgba(0,0,0,0.15);">
+      Book a Paws &amp; Chat
+    </a>
+  </section>
+
+</main>
+
+<div id="footer-root"></div>
+
+<script type="module" src="/src/components/load.js"></script>
+<script>
+  // Hero Ken Burns on load
+  window.addEventListener('load', () => {
+    const heroBg = document.getElementById('hero-bg');
+    if (heroBg) heroBg.classList.add('loaded');
+  });
+
+  // Intersection-based fade-up for off-hero elements
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.fade-up').forEach(el => {
+    if (!el.closest('.hero')) {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    }
+  });
+</script>
+
+</body>
+</html>

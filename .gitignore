@@ -1,0 +1,5 @@
+.env
+node_modules/
+temporary screenshots/
+*.DS_Store
+Thumbs.db

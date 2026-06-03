@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About Us | Neighborhood Dog Walkers in Stuyvesant Town | Dog Walkin.com</title>
+  <meta name="description" content="Born and raised in Stuyvesant Town. Led by David, our team offers dog walking and pet sitting 365 days a year with same-day requests. Your neighbors, not just your dog walkers.">
+
+  <link rel="canonical" href="https://dogwalkin.com/about">
+
+  <meta property="og:type"        content="website">
+  <meta property="og:site_name"   content="Dog Walkin.com">
+  <meta property="og:title"       content="About Us | Neighborhood Dog Walkers in Stuyvesant Town | Dog Walkin.com">
+  <meta property="og:description" content="Born and raised in Stuyvesant Town. Led by David, our team offers dog walking and pet sitting 365 days a year with same-day requests. Your neighbors, not just your dog walkers.">
+  <meta property="og:url"         content="https://dogwalkin.com/about">
+  <meta property="og:image"       content="https://dogwalkin.com/brand_assets/og-image.jpg">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="About Us | Neighborhood Dog Walkers in Stuyvesant Town | Dog Walkin.com">
+  <meta name="twitter:description" content="Born and raised in Stuyvesant Town. Led by David, our team offers dog walking and pet sitting 365 days a year with same-day requests. Your neighbors, not just your dog walkers.">
+  <meta name="twitter:image"       content="https://dogwalkin.com/brand_assets/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Dog Walkin.com",
+    "alternateName": "Coopertown Dog Walking",
+    "description": "Professional dog walking and pet sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days a year, same-day requests welcome.",
+    "url": "https://dogwalkin.com",
+    "telephone": "+16465808877",
+    "email": "coopertowndogwalking@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10009",
+      "addressCountry": "US"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 40.7282, "longitude": -73.9782 },
+    "areaServed": [
+      { "@type": "Place", "name": "Stuyvesant Town" },
+      { "@type": "Place", "name": "East Village" },
+      { "@type": "Place", "name": "Gramercy" },
+      { "@type": "Place", "name": "Murray Hill" }
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "06:30",
+      "closes": "20:30"
+    },
+    "sameAs": [
+      "https://www.instagram.com/coopertowndogwalking/",
+      "https://www.facebook.com/112056688654872"
+    ]
+  }
+  </script>
+
+  <link rel="icon" href="/brand_assets/dogwalkin_logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/style.css">
+
+  <style>
+    /* ── About hero ──────────────────────────────────────── */
+    .about-hero {
+      position: relative;
+      height: 420px;
+      overflow: hidden;
+      display: flex;
+      align-items: flex-end;
+    }
+    .about-hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('/brand_assets/photos/hero-002.jpg');
+      background-size: cover;
+      background-position: center 35%;
+    }
+    .about-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,10,10,0.80) 0%, rgba(10,10,10,0.15) 100%);
+    }
+    .about-hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 2rem 3rem;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .about-hero-content .eyebrow { color: #00C4B4; margin-bottom: 0.5rem; }
+    .about-hero-content h1 {
+      color: #fff;
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      max-width: 680px;
+      text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+
+    /* ── Story section ───────────────────────────────────── */
+    .story-section {
+      padding: 5rem 2rem;
+      background: #E0F7F5;
+    }
+    .story-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .story-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,196,180,0.18), 0 2px 8px rgba(26,26,26,0.1);
+    }
+    .story-text .eyebrow { margin-bottom: 0.5rem; }
+    .story-text h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); margin-bottom: 1.25rem; }
+    .story-text p { font-size: 0.975rem; color: #5C5C5C; line-height: 1.75; margin-bottom: 1rem; }
+    .brand-statement {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: #00897B;
+      border-left: 3px solid #00C4B4;
+      padding-left: 1.25rem;
+      margin-top: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* ── Meet David ──────────────────────────────────────── */
+    .david-section {
+      padding: 5rem 2rem;
+    }
+    .david-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 3.5rem;
+      align-items: start;
+    }
+    .david-photo {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(26,26,26,0.12);
+      background: #E0F7F5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .david-photo-placeholder {
+      width: 100%;
+      aspect-ratio: 3/4;
+      background: #E0F7F5;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: #00897B;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-align: center;
+      padding: 2rem;
+    }
+    .david-photo-placeholder span { font-size: 2.5rem; }
+    .david-text .eyebrow { margin-bottom: 0.5rem; }
+    .david-text h2 { font-size: clamp(1.5rem, 2.5vw, 2rem); margin-bottom: 0.5rem; }
+    .david-text .david-title {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #00C4B4;
+      margin-bottom: 1.25rem;
+    }
+    .david-text p { font-size: 0.975rem; color: #5C5C5C; line-height: 1.75; margin-bottom: 1rem; }
+    .david-cta { margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── Stats ───────────────────────────────────────────── */
+    .stats-section {
+      background: #1A1A1A;
+      padding: 4rem 2rem;
+    }
+    .stats-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat-item {}
+    .stat-number {
+      font-family: Georgia, serif;
+      font-size: clamp(2.5rem, 5vw, 3.75rem);
+      font-weight: 700;
+      color: #00C4B4;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+
+    /* ── Approach ────────────────────────────────────────── */
+    .approach-section {
+      padding: 5rem 2rem;
+      background: #F7F7F5;
+    }
+    .approach-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+      margin-top: 2.5rem;
+    }
+    .approach-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 2px 8px rgba(26,26,26,0.05);
+    }
+    .approach-card-icon { font-size: 2rem; margin-bottom: 1rem; }
+    .approach-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .approach-card p  { font-size: 0.9rem; color: #5C5C5C; line-height: 1.65; }
+
+    /* ── Instagram gallery ───────────────────────────────── */
+    .ig-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+    }
+    .ig-grid img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: opacity 0.2s, transform 0.3s ease;
+    }
+    .ig-grid img:hover { opacity: 0.88; transform: scale(1.04); }
+
+    /* ── Reviews ─────────────────────────────────────────── */
+    .reviews-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .review-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.75rem;
+      box-shadow: 0 2px 8px rgba(26,26,26,0.06);
+    }
+    .review-card .stars { color: #F2A623; font-size: 1rem; margin-bottom: 0.75rem; display: block; }
+    .review-card blockquote {
+      font-family: Georgia, serif;
+      font-style: italic;
+      font-size: 0.975rem;
+      color: #1A1A1A;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .review-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #5C5C5C;
+    }
+
+    @media (max-width: 900px) {
+      .story-inner, .david-inner { grid-template-columns: 1fr; }
+      .stats-grid, .approach-grid, .reviews-row { grid-template-columns: 1fr; }
+      .ig-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+  </style>
+</head>
+
+<body>
+
+<div id="nav-root"></div>
+
+<main>
+
+  <!-- ① HERO -->
+  <header class="about-hero">
+    <div class="about-hero-bg"></div>
+    <div class="about-hero-overlay"></div>
+    <div class="about-hero-content">
+      <p class="eyebrow">Stuyvesant Town</p>
+      <h1>Your neighborhood pet care team — born and raised here.</h1>
+    </div>
+  </header>
+
+  <!-- ② OUR STORY -->
+  <section class="story-section" aria-labelledby="story-heading">
+    <div class="story-inner">
+      <img src="/brand_assets/photos/dog-020.jpg" alt="Dog on a Stuyvesant Town residential path lined with trees" class="story-img" loading="lazy">
+      <div class="story-text">
+        <p class="eyebrow">Our story</p>
+        <h2 id="story-heading">We grew up here. This community is home.</h2>
+        <p>Dog Walkin.com didn't start as a business plan. It started with a love for animals and a deep connection to Stuyvesant Town — one of the most unique neighborhoods in New York City.</p>
+        <p>We know these paths because we've walked them our whole lives. We know the doormen, the dog runs, the best spots to let a nervous pup decompress. That kind of knowledge isn't something you build overnight — it's something you grow up with.</p>
+        <p>That's why every client feels like a neighbor, and every pet feels like part of the family.</p>
+        <blockquote class="brand-statement">
+          "Born and raised in Stuyvesant Town, we're not just your dog walkers — we're your neighbors. To us, pets aren't clients; they're family. And we can't wait to make yours part of ours."
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ MEET DAVID -->
+  <section class="david-section" aria-labelledby="david-heading">
+    <div class="david-inner">
+      <div class="david-photo-placeholder" role="img" aria-label="Photo of David coming soon">
+        <span>🐾</span>
+        <p>Photo of David<br><em style="font-style:italic;font-size:0.75rem;opacity:0.6;">Coming soon</em></p>
+      </div>
+      <div class="david-text">
+        <p class="eyebrow">Meet your walker</p>
+        <h2 id="david-heading">David</h2>
+        <p class="david-title">Lead Walker &amp; Founder · Stuyvesant Town Native</p>
+        <p>David has spent his entire life in Stuyvesant Town, and his entire adult life working with dogs. He brings a calm, knowledgeable energy that even the most anxious animals respond to — because he genuinely understands canine behavior, not just routines.</p>
+        <p>He's not just walking your dog. He's watching how they interact with other animals, reading their body language, and making real-time decisions that keep every walk safe and enjoyable. He's the kind of person your dog will wait by the door for.</p>
+        <p>David leads every client relationship personally. When you book with Dog Walkin.com, you're working with someone who lives in your building, walks your block, and cares about your pet the way a neighbor would.</p>
+        <div class="david-cta">
+          <a href="/contact" class="btn btn-primary">Book a meet &amp; greet</a>
+          <a href="/contact" class="btn btn-outline-dark">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ STATS -->
+  <section class="stats-section" aria-label="Community stats">
+    <div class="stats-grid">
+      <div class="stat-item fade-up">
+        <p class="stat-number">365</p>
+        <p class="stat-label">Days a year</p>
+      </div>
+      <div class="stat-item fade-up delay-1">
+        <p class="stat-number">Same<br style="display:none"> day</p>
+        <p class="stat-label">Requests welcome</p>
+      </div>
+      <div class="stat-item fade-up delay-2">
+        <p class="stat-number">100%</p>
+        <p class="stat-label">Neighborhood roots</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑤ OUR APPROACH -->
+  <section class="approach-section" aria-labelledby="approach-heading">
+    <div class="approach-inner">
+      <p class="eyebrow" style="margin-bottom:0.5rem;">How we work</p>
+      <h2 id="approach-heading" style="font-size:clamp(1.6rem,3vw,2.25rem);">We love what we do. It shows.</h2>
+      <div class="approach-grid">
+        <div class="approach-card fade-up">
+          <div class="approach-card-icon">🧠</div>
+          <h3>Canine behavior knowledge</h3>
+          <p>We understand how dogs think, communicate, and react. That means better decisions on every walk — especially for dogs with anxiety, reactivity, or special needs.</p>
+        </div>
+        <div class="approach-card fade-up delay-1">
+          <div class="approach-card-icon">🛡️</div>
+          <h3>Safety first, always</h3>
+          <p>Every walk is planned, not improvised. We know which routes are safe, which dogs are friendly, and how to manage group dynamics without stress.</p>
+        </div>
+        <div class="approach-card fade-up delay-2">
+          <div class="approach-card-icon">💬</div>
+          <h3>You're always in the loop</h3>
+          <p>Post-walk reports and photos after every visit. No guessing whether your dog had a good time — you'll know.</p>
+        </div>
+        <div class="approach-card fade-up delay-3">
+          <div class="approach-card-icon">❤️</div>
+          <h3>Genuine care, not just a service</h3>
+          <p>We don't treat this like a transaction. When your pet is in our care, they get the same attention we'd give our own. That's not a tagline — it's how we operate every single day.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑥ INSTAGRAM GALLERY -->
+  <section class="section-sm" style="background:#fff;">
+    <div class="container">
+      <p class="eyebrow" style="text-align:center;margin-bottom:0.5rem;">@coopertowndogwalking</p>
+      <h2 style="font-size:clamp(1.4rem,2.5vw,1.875rem);text-align:center;margin-bottom:1.75rem;">Follow us on Instagram.</h2>
+      <div class="ig-grid">
+        <img src="/brand_assets/photos/dog-041.jpg" alt="Chocolate lab in snowy NYC" loading="lazy">
+        <img src="/brand_assets/photos/dog-046.jpg" alt="Bulldog at the winter waterfront" loading="lazy">
+        <img src="/brand_assets/photos/dog-012.jpg" alt="Black lab amid cherry blossoms in Stuyvesant Town" loading="lazy">
+        <img src="/brand_assets/photos/dog-006.jpg" alt="Bulldog on the NYC ferry" loading="lazy">
+        <img src="/brand_assets/photos/dog-044.jpg" alt="Springer spaniel in a pink winter coat" loading="lazy">
+        <img src="/brand_assets/photos/dog-025.jpg" alt="Bernedoodle at Washington Square Park in the snow" loading="lazy">
+        <img src="/brand_assets/photos/cat-004.jpg" alt="Black and white cat upside down on a bed" loading="lazy">
+        <img src="/brand_assets/photos/dog-028.jpg" alt="Corgi looking up at the camera" loading="lazy">
+        <img src="/brand_assets/photos/dog-047.jpg" alt="Bulldog with NYC skyline in winter" loading="lazy">
+        <img src="/brand_assets/photos/dog-030.jpg" alt="Golden retriever on a green NYC storefront sidewalk" loading="lazy">
+      </div>
+      <div style="text-align:center;margin-top:1.75rem;">
+        <a href="https://www.instagram.com/coopertowndogwalking/" target="_blank" rel="noopener noreferrer" class="btn btn-outline-dark">
+          Follow me on Instagram ↗
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ⑦ REVIEWS -->
+  <section class="section" style="background:#F7F7F5;" aria-labelledby="reviews-heading">
+    <div class="container">
+      <p class="eyebrow" style="margin-bottom:0.5rem;">Google reviews</p>
+      <h2 id="reviews-heading" style="font-size:clamp(1.4rem,2.5vw,1.875rem);margin-bottom:2rem;">What the neighborhood is saying.</h2>
+      <div class="reviews-row">
+        <div class="review-card fade-up">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"David is incredible. Our anxious rescue completely trusts him — she literally sprints to the door when she hears him coming. Total peace of mind."</blockquote>
+          <p class="review-author">— Sarah M., Stuyvesant Town</p>
+        </div>
+        <div class="review-card fade-up delay-1">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Reliable, caring, and they really know this neighborhood. Been using Dog Walkin.com for two years and I'd never go anywhere else."</blockquote>
+          <p class="review-author">— James K., Stuyvesant Town</p>
+        </div>
+        <div class="review-card fade-up delay-2">
+          <span class="stars" aria-label="5 stars">★★★★★</span>
+          <blockquote>"Came home to two very happy, very spoiled kitties. They remembered every detail — feeding schedule, which one hides under the bed. Just exceptional."</blockquote>
+          <p class="review-author">— Priya L., East Village</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div id="footer-root"></div>
+
+<script type="module" src="/src/components/load.js"></script>
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.animationPlayState = 'running';
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.fade-up').forEach(el => {
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
