@@ -6,8 +6,9 @@
 
 | File | Purpose |
 |------|---------|
-| `dogwalkin_logo.svg` | Primary logo — circular teal background, cartoon golden dog face. Use for favicon, nav bar, hero mark. Never recolor, stretch, or recreate. Clear space: min half the icon diameter on all sides. |
-| `dogwalkin_brand_guidelines_pdf.pdf` | Full brand guidelines PDF. Reference for typography, color, tone, and usage rules. |
+| `dogwalkin_logo.svg` | **v2 primary lockup** — line-art dog mark + "DOG WALKIN.COM" wordmark + tagline, 980×580 viewBox, `#1A1A1A` fill on transparent. Use for headers, About page, email signatures, print. Never recolor beyond black/white, stretch, distort, or recreate. |
+| `dogwalkin_icon_only.svg` | **v2 icon only** — single continuous line-art drawing of the dog mark, 380×380, `#1A1A1A` fill on transparent. Use for favicon, nav bar, social avatar. Apply `fill="#FFFFFF"` inline for use on `--teal` or `--ink` backgrounds. |
+| `dogwalkin_brand_guidelines.pdf` | Full brand guidelines PDF. Reference for typography, color, tone, and usage rules. |
 | `colors.css` | CSS custom properties for all brand color tokens. Import into any stylesheet or copy into Tailwind config. |
 
 ---
