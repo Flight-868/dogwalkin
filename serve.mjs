@@ -22,6 +22,7 @@ const MIME = {
   '.xml':  'application/xml',
   '.txt':  'text/plain',
   '.webp': 'image/webp',
+  '.webmanifest': 'application/manifest+json',
 };
 
 // Clean URL → file mapping
@@ -43,8 +44,18 @@ const server = http.createServer((req, res) => {
 
   fs.readFile(filePath, (err, data) => {
     if (err) {
-      res.writeHead(404, { 'Content-Type': 'text/plain' });
-      res.end(`404 Not Found: ${urlPath}`);
+      // Fallback: public/ mirrors the domain root (favicon.ico, robots.txt, etc.)
+      const publicPath = path.join(__dirname, 'public', urlPath);
+      fs.readFile(publicPath, (err2, data2) => {
+        if (err2) {
+          res.writeHead(404, { 'Content-Type': 'text/plain' });
+          res.end(`404 Not Found: ${urlPath}`);
+          return;
+        }
+        const ext2 = path.extname(publicPath).toLowerCase();
+        res.writeHead(200, { 'Content-Type': MIME[ext2] || 'application/octet-stream' });
+        res.end(data2);
+      });
       return;
     }
     const ext = path.extname(filePath).toLowerCase();

@@ -423,10 +423,14 @@ These items cannot be completed until the client provides information. Do not st
 
 ### Screenshot workflow
 - Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
+- **Before taking the first screenshot of a new session:** archive the previous generation by moving everything currently in `temporary screenshots/` (except the `previous/` folder itself) into `temporary screenshots/previous/`, replacing whatever was there. This keeps exactly one prior generation on hand for before/after comparison without letting the folder grow unbounded.
+  - `mkdir -p "temporary screenshots/previous" && find "temporary screenshots" -maxdepth 1 -type f -exec rm -f "temporary screenshots/previous/{}" \; -exec mv {} "temporary screenshots/previous/" \;`
+  - (Windows/PowerShell equivalent: `New-Item -ItemType Directory -Force "temporary screenshots\previous" | Out-Null; Remove-Item "temporary screenshots\previous\*" -File -ErrorAction SilentlyContinue; Get-ChildItem "temporary screenshots" -File | Move-Item -Destination "temporary screenshots\previous"`)
 - **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
-- Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
+- Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten, within a session).
 - Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
 - `screenshot.mjs` lives in the project root. Use it as-is.
+- `temporary screenshots/previous/` is included in the existing `.gitignore` entry for `temporary screenshots/` — no changes needed there.
 - After screenshotting, read the PNG from `temporary screenshots/` with the Read tool — Claude can see and analyze the image directly.
 - When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"
 - Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing

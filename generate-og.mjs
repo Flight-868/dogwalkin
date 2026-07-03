@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const logoSvg   = fs.readFileSync(path.join(__dirname, 'brand_assets/dogwalkin_logo.svg'), 'utf8');
+const logoSvg   = fs.readFileSync(path.join(__dirname, 'brand_assets/dogwalkin_icon_only_white.svg'), 'utf8');
 const logoUri   = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(logoSvg)}`;
 
 const heroData  = fs.readFileSync(path.join(__dirname, 'brand_assets/photos/hero-001.jpg'));
@@ -64,9 +64,8 @@ const html = `<!DOCTYPE html>
     gap: 14px;
   }
   .brand img {
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
+    width: 44px;
+    height: 44px;
   }
   .brand-name {
     font-family: Georgia, serif;
