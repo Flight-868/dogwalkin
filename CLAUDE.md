@@ -401,7 +401,6 @@ These items cannot be completed until the client provides information. Do not st
 | Item | What's needed | Where it's used |
 |------|--------------|-----------------|
 | David's photo | A real photo of David, ideally with a dog — save as `brand_assets/photos/david-001.jpg` | About page "Meet David" section |
-| Facebook page URL | Full URL to the business Facebook page | Nav, footer, and Contact social links |
 | Stripe account | Does David have an existing Stripe account? If yes: publishable key (`pk_live_...`). If no: he needs to create one at stripe.com | Services page bill pay section |
 
 ---
