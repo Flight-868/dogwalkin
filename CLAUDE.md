@@ -39,6 +39,10 @@ dogwalkin/
 │       ├── nav.html                  ← global nav bar partial
 │       └── footer.html               ← global footer partial
 │
+├── docs/
+│   ├── contact-form-setup.md         ← form setup + monitoring runbook for David
+│   └── inquiry-log.gs                ← Apps Script: appends inquiries to a Google Sheet
+│
 ├── public/
 │   ├── sitemap.xml                   ← all four pages, canonical dogwalkin.com URLs
 │   └── robots.txt                    ← Allow: / + sitemap reference
@@ -218,7 +222,7 @@ Cat visits include: feeding, litter box cleaning, playtime, medicine, brushing, 
 | # | Section | Key content |
 |---|---------|-------------|
 | 1 | **Paws & Chat** | "Let's meet!" heading, 30-min free meet & greet, booking widget/calendar, dog photo |
-| 2 | **Contact form** | Name · Email* · Message · Send button (teal) · reCAPTCHA note |
+| 2 | **Contact form** | Name · Email* · Message · Send button (teal) · spam-filtering note. Posts to Web3Forms (relays to David's Gmail) and, in parallel, to an Apps Script that appends to a Google Sheet log. See `docs/contact-form-setup.md` |
 | 3 | **Service area** | StuyTown · East Village · Gramercy · Murray Hill |
 | 4 | **Map** | Google Maps embed, centered on 10009, "Get Directions" link |
 | 5 | **Direct contact** | 646-580-8877 (tel: link) · coopertowndogwalking@gmail.com (mailto: link) |
@@ -385,13 +389,13 @@ The existing GoDaddy online bill pay page is being removed entirely. All payment
 - **Mobile-first** — most visitors are NYC dog owners checking on their phone mid-walk
 - **Real photos only** — source from `brand_assets/` or the Instagram feed; no stock photography
 - **Logo** — full lockup: `brand_assets/dogwalkin_logo.svg`; icon only: `brand_assets/dogwalkin_icon_only.svg`. Use black fill on light backgrounds, `fill="#FFFFFF"` on `--teal`/`--ink`. Never recreate, stretch, distort, or add effects.
-- **Booking widget** — the "Book Now" / Paws & Chat flow links to the existing GoDaddy appointment system; preserve that link, don't rebuild the widget
+- **Booking widget** — there is no portable GoDaddy appointment link to preserve. Verified 2026-08-23 against the live site: the old GoDaddy "Book Now" points at `/contact#49ae3e26-…`, which is a plain contact-form widget, and the Online Appointments section (homepage, `2fa3e7c7-…`) renders inline on the W+M site itself. Killing that site kills it. Pending a decision between a third-party scheduler (Cal.com free tier is the recommendation — embeddable, unlimited event types, email/SMS reminders) and keeping W+M alive on a subdomain.
 - **Accessibility** — all images need descriptive alt text; color contrast must meet WCAG AA
 - **Instagram embed** — feed appears on Home (section 5) and About (section 6); a real embed requires an API token or a third-party service (Embedsocial, Behold, etc.); local photos from `brand_assets/photos/` are a stand-in only
 - **OG image** — all pages reference `brand_assets/og-image.jpg` in OG/Twitter tags; this file does not exist yet — generate a 1200×630px branded image using the logo and brand colors and save it there
 - **colors.css** — listed in `brand_assets/` but not yet generated; create it with all brand tokens as CSS custom properties
 - **Deployment prep** — before going live, adjust all file paths so they work when `src/` contents are served from the GoDaddy domain root (`public_html/`)
-- **301 redirect** — `coopertowndogwalking.com` → `dogwalkin.com` must be set up in GoDaddy DNS settings, not in code; this is a manual step in the GoDaddy control panel
+- **301 redirect** — ✅ done. `coopertowndogwalking.com` → `dogwalkin.com` returns a 301 (verified 2026-08-23). No further action.
 - **Peter Cooper Village in schema** — intentionally kept in `areaServed` in the LocalBusiness JSON-LD (it is a real service area); removed from all visible brand copy per client request
 
 ## Pending — Waiting on Client
@@ -401,6 +405,8 @@ These items cannot be completed until the client provides information. Do not st
 | Item | What's needed | Where it's used |
 |------|--------------|-----------------|
 | Stripe account | Does David have an existing Stripe account? If yes: publishable key (`pk_live_...`). If no: he needs to create one at stripe.com | Services page bill pay section |
+| Web3Forms access key | David verifies coopertowndogwalking@gmail.com at web3forms.com and pastes back the key. **Required — the contact form cannot send without it.** See `docs/contact-form-setup.md` | `src/contact.html` — `DAVID_ACCESS_KEY_HERE` |
+| Apps Script log URL | David deploys `docs/inquiry-log.gs` from a Google Sheet and pastes back the `/exec` URL. Optional — the form sends without it, but there is no durable inquiry log | `src/contact.html` — `DAVID_APPS_SCRIPT_URL_HERE` |
 
 ---
 

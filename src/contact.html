@@ -170,12 +170,66 @@
     }
     .contact-form textarea { height: 140px; resize: vertical; }
     .contact-form .form-submit { margin-top: 1.5rem; width: 100%; justify-content: center; }
-    .contact-form .recaptcha-note {
+    .contact-form .form-note {
       font-size: 0.75rem;
       color: #aaa;
       margin-top: 0.75rem;
       text-align: center;
       line-height: 1.5;
+    }
+    /* Honeypot — off-screen for people, irresistible to bots */
+    .contact-form .hp-field {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .contact-form .form-submit[disabled] {
+      opacity: 0.6;
+      cursor: progress;
+      transform: none;
+    }
+    .contact-form .form-submit[disabled]:hover { transform: none; }
+
+    /* ── Form status panels ────────────────────────────────── */
+    .form-status {
+      border-radius: 10px;
+      padding: 1.5rem;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #5C5C5C;
+    }
+    .form-status h3 {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: #1A1A1A;
+      margin-bottom: 0.5rem;
+    }
+    .form-status a {
+      color: #00897B;
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(0,137,123,0.3);
+    }
+    .form-status a:hover { border-bottom-color: #00897B; }
+    .form-status-success {
+      background: #E0F7F5;
+      border-left: 4px solid #00C4B4;
+    }
+    .form-status-error {
+      background: #FBF1E4;
+      border-left: 4px solid #D49A3C;
+      margin-top: 1rem;
+    }
+    .form-status-error ul {
+      list-style: none;
+      margin-top: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
     }
 
     /* ── Right column info ────────────────────────────────── */
@@ -284,7 +338,15 @@
       <div>
         <p class="eyebrow" style="margin-bottom:0.5rem;">Send a message</p>
         <h2 style="font-size:clamp(1.4rem,2.5vw,1.875rem);margin-bottom:1.5rem;">We'd love to hear from you.</h2>
-        <form class="contact-form" action="#" method="POST" novalidate>
+        <form class="contact-form" id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+          <!-- PENDING CLIENT: swap in David's Web3Forms access key. See docs/contact-form-setup.md -->
+          <input type="hidden" name="access_key" value="DAVID_ACCESS_KEY_HERE">
+          <input type="hidden" name="subject" value="New inquiry from Dog Walkin.com">
+          <input type="hidden" name="from_name" value="Dog Walkin.com website">
+
+          <!-- Honeypot: hidden from people, filled in by bots -->
+          <input type="checkbox" name="botcheck" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
           <label for="name">Your name</label>
           <input type="text" id="name" name="name" autocomplete="name" placeholder="Jane Smith" required>
 
@@ -295,8 +357,24 @@
           <textarea id="message" name="message" placeholder="Tell us about your pet — breed, age, any special needs, and what you're looking for." required></textarea>
 
           <button type="submit" class="btn btn-primary form-submit">Send message</button>
-          <p class="recaptcha-note">This site is protected by reCAPTCHA. Your information is never shared with third parties.</p>
+          <p class="form-note">Protected by spam filtering. We'll only use your details to reply about pet care.</p>
+
+          <!-- Shown if the send fails, so an inquiry is never silently lost -->
+          <div class="form-status form-status-error" id="form-error" role="alert" hidden>
+            <h3>That didn't go through.</h3>
+            <p>Sorry — something broke on our end. Please try again, or reach us directly:</p>
+            <ul>
+              <li><a href="tel:+16465808877">646-580-8877</a></li>
+              <li><a href="mailto:coopertowndogwalking@gmail.com">coopertowndogwalking@gmail.com</a></li>
+            </ul>
+          </div>
         </form>
+
+        <!-- Replaces the form on a successful send -->
+        <div class="form-status form-status-success" id="form-success" role="status" hidden>
+          <h3>Thanks — we got it.</h3>
+          <p>We'll get back to you within a day, usually a lot sooner. If it's urgent, give us a ring at <a href="tel:+16465808877">646-580-8877</a>.</p>
+        </div>
       </div>
 
       <!-- RIGHT: Info -->
@@ -368,5 +446,83 @@
 <div id="footer-root"></div>
 
 <script type="module" src="/src/components/load.js"></script>
+
+<!-- ── Contact form: send + parallel inquiry log ──────────────────────── -->
+<script>
+(function () {
+  var CONFIG = {
+    // Web3Forms relays the message to David's Gmail and returns a readable
+    // JSON result, which is what lets us show a real success/error state.
+    endpoint: 'https://api.web3forms.com/submit',
+
+    // PENDING CLIENT: Apps Script /exec URL that appends each inquiry to the
+    // Google Sheet log. Leave as-is until David deploys it — the form still
+    // works without it. See docs/contact-form-setup.md
+    logEndpoint: 'DAVID_APPS_SCRIPT_URL_HERE'
+  };
+
+  var form     = document.getElementById('contact-form');
+  var okPanel  = document.getElementById('form-success');
+  var errPanel = document.getElementById('form-error');
+  if (!form) return;
+
+  var button   = form.querySelector('.form-submit');
+  var idleText = button.textContent;
+
+  // Best-effort second write to the Google Sheet. Apps Script cannot set CORS
+  // headers, so we send a simple text/plain request in no-cors mode: it goes
+  // through, but the reply is opaque. Never block or fail the send on this.
+  function logInquiry(payload) {
+    if (!CONFIG.logEndpoint || CONFIG.logEndpoint.indexOf('DAVID_') === 0) return;
+    try {
+      fetch(CONFIG.logEndpoint, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).catch(function () { /* log is best-effort */ });
+    } catch (err) { /* log is best-effort */ }
+  }
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+    errPanel.hidden = true;
+
+    var data = {};
+    new FormData(form).forEach(function (value, key) { data[key] = value; });
+
+    // Write to the log first, so a relay outage still leaves a record.
+    logInquiry({
+      name: data.name || '',
+      email: data.email || '',
+      message: data.message || '',
+      source: 'contact',
+      submittedAt: new Date().toISOString()
+    });
+
+    button.disabled = true;
+    button.textContent = 'Sending…';
+
+    fetch(CONFIG.endpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (result) {
+        if (!result || result.success !== true) throw new Error('send failed');
+        form.hidden = true;
+        okPanel.hidden = false;
+        okPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      })
+      .catch(function () {
+        errPanel.hidden = false;
+        button.disabled = false;
+        button.textContent = idleText;
+        errPanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      });
+  });
+})();
+</script>
 </body>
 </html>
