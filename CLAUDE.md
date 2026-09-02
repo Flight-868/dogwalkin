@@ -221,7 +221,7 @@ Cat visits include: feeding, litter box cleaning, playtime, medicine, brushing, 
 
 | # | Section | Key content |
 |---|---------|-------------|
-| 1 | **Paws & Chat** | "Let's meet!" heading, 30-min free meet & greet, booking widget/calendar, dog photo |
+| 1 | **Paws & Chat** | "Let's meet!" heading, 30-min free meet & greet, direct call/email card, dog photo. No calendar — booking runs through the contact form below. |
 | 2 | **Contact form** | Name · Email* · Message · Send button (teal) · spam-filtering note. Posts to Web3Forms (relays to David's Gmail) and, in parallel, to an Apps Script that appends to a Google Sheet log. See `docs/contact-form-setup.md` |
 | 3 | **Service area** | StuyTown · East Village · Gramercy · Murray Hill |
 | 4 | **Map** | Google Maps embed, centered on 10009, "Get Directions" link |
@@ -389,7 +389,7 @@ The existing GoDaddy online bill pay page is being removed entirely. All payment
 - **Mobile-first** — most visitors are NYC dog owners checking on their phone mid-walk
 - **Real photos only** — source from `brand_assets/` or the Instagram feed; no stock photography
 - **Logo** — full lockup: `brand_assets/dogwalkin_logo.svg`; icon only: `brand_assets/dogwalkin_icon_only.svg`. Use black fill on light backgrounds, `fill="#FFFFFF"` on `--teal`/`--ink`. Never recreate, stretch, distort, or add effects.
-- **Booking widget** — there is no portable GoDaddy appointment link to preserve. Verified 2026-08-23 against the live site: the old GoDaddy "Book Now" points at `/contact#49ae3e26-…`, which is a plain contact-form widget, and the Online Appointments section (homepage, `2fa3e7c7-…`) renders inline on the W+M site itself. Killing that site kills it. Pending a decision between a third-party scheduler (Cal.com free tier is the recommendation — embeddable, unlimited event types, email/SMS reminders) and keeping W+M alive on a subdomain.
+- **Booking** — no calendar or scheduler. Decided 2026-09-01: the contact form (plus the direct call/email card) is the booking path, permanently. Do not add Cal.com, a W+M subdomain, or any other scheduling widget.
 - **Accessibility** — all images need descriptive alt text; color contrast must meet WCAG AA
 - **Instagram embed** — feed appears on Home (section 5) and About (section 6); a real embed requires an API token or a third-party service (Embedsocial, Behold, etc.); local photos from `brand_assets/photos/` are a stand-in only
 - **OG image** — all pages reference `brand_assets/og-image.jpg` in OG/Twitter tags; this file does not exist yet — generate a 1200×630px branded image using the logo and brand colors and save it there
