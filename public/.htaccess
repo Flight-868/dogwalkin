@@ -1,0 +1,92 @@
+# Dog Walkin.com — Apache config for GoDaddy shared hosting (public_html/)
+# ----------------------------------------------------------------------
+# Every canonical tag, og:url, and sitemap entry uses the form
+#   https://dogwalkin.com/about
+# — https, no www, no .html, no trailing slash. The rules below make the
+# server actually serve that form, and 301 every other spelling to it, so
+# Google never sees two URLs for one page.
+
+Options -Indexes
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # ── Canonical host: force https and strip www ──────────────────────
+  # Combined into one hop so http://www → https://non-www is a single 301.
+  # If SSL is not yet provisioned on the domain, comment this block out or
+  # the site will be unreachable.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^(.*)$ https://dogwalkin.com/$1 [R=301,L]
+
+  # ── Strip trailing slashes (except the root) ───────────────────────
+  # /about/ → /about. Skips real directories so brand_assets/ still works.
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # ── Redirect .html requests to the clean URL ───────────────────────
+  # /about.html → /about. Prevents the duplicate-content pair that would
+  # otherwise exist for every page. %{THE_REQUEST} is used so this only
+  # fires on real browser requests, never on the internal rewrite below
+  # (which would otherwise loop).
+  RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.html[\s?] [NC]
+  RewriteRule ^ /%1 [R=301,L]
+
+  # ── Serve clean URLs from the .html files ──────────────────────────
+  # /about (no file on disk) → about.html. Must come last.
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# ── Compression ───────────────────────────────────────────────────────
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml
+  AddOutputFilterByType DEFLATE application/javascript application/json
+  AddOutputFilterByType DEFLATE image/svg+xml application/manifest+json
+</IfModule>
+
+# ── Caching ───────────────────────────────────────────────────────────
+# Photos and the logo are content-addressed by name and effectively never
+# change, so they cache hard. HTML must not, or an edit to a page would be
+# invisible to returning visitors. The partials in components/ are fetched
+# by JS on every page, so they follow the HTML rule, not the asset rule.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault                          "access plus 1 week"
+  ExpiresByType image/jpeg                "access plus 1 year"
+  ExpiresByType image/png                 "access plus 1 year"
+  ExpiresByType image/webp                "access plus 1 year"
+  ExpiresByType image/svg+xml             "access plus 1 year"
+  ExpiresByType image/x-icon              "access plus 1 year"
+  ExpiresByType text/css                  "access plus 1 month"
+  ExpiresByType application/javascript    "access plus 1 month"
+  ExpiresByType text/html                 "access plus 0 seconds"
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Belt-and-braces: keep HTML and the nav/footer partials always fresh.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  # Basic hardening. No CSP — the Google Maps iframe and the two form
+  # endpoints would need enumerating, and getting that wrong breaks the
+  # booking path silently.
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# ── MIME types ────────────────────────────────────────────────────────
+# GoDaddy's default config does not always know these.
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest
+  AddType image/svg+xml             .svg
+</IfModule>
+
+# ── Protect the environment file, if one is ever added ────────────────
+<FilesMatch "^\.(env|git)">
+  Require all denied
+</FilesMatch>

@@ -1,0 +1,13 @@
+# Apache can fail to parse a config file with CRLF line endings, and the
+# server this deploys to is Linux. Keep anything the server itself reads at
+# LF regardless of the checkout platform.
+.htaccess       text eol=lf
+*.htaccess      text eol=lf
+
+# Served as-is; keep them LF for the same reason.
+robots.txt      text eol=lf
+sitemap.xml     text eol=lf
+*.webmanifest   text eol=lf
+
+# Apps Script source, pasted into Google's editor.
+*.gs            text eol=lf

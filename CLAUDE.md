@@ -43,7 +43,8 @@ dogwalkin/
 │   ├── contact-form-setup.md         ← form setup + monitoring runbook for David
 │   └── inquiry-log.gs                ← Apps Script: appends inquiries to a Google Sheet
 │
-├── public/
+├── public/                           ← mirrors the GoDaddy domain root
+│   ├── .htaccess                     ← clean URLs, canonical host, caching
 │   ├── sitemap.xml                   ← all four pages, canonical dogwalkin.com URLs
 │   └── robots.txt                    ← Allow: / + sitemap reference
 │
@@ -57,7 +58,8 @@ dogwalkin/
 ### File location rules
 - All pages go in `src/` — never in the project root
 - All brand files (logo, photos, guidelines) go in `brand_assets/` — never inline or in `src/`
-- Static files that are served as-is (`sitemap.xml`, `robots.txt`) go in `public/`
+- Static files that are served as-is (`sitemap.xml`, `robots.txt`, `.htaccess`) go in `public/`
+- Link to assets as if `src/` and `public/` were both already at the domain root: `/style.css`, `/components/load.js`, `/brand_assets/…` — never `/src/…`. `serve.mjs` resolves paths the same way, so a link that works locally works deployed.
 - Stripe needs no keys — the site links to a hosted Payment Link URL (see Stripe Integration)
 - Never commit `temporary screenshots/`
 
@@ -395,7 +397,7 @@ David confirmed 2026-09-21 that he already has a Stripe account — no signup ne
 - **Instagram embed** — feed appears on Home (section 5) and About (section 6); a real embed requires an API token or a third-party service (Embedsocial, Behold, etc.); local photos from `brand_assets/photos/` are a stand-in only
 - **OG image** — all pages reference `brand_assets/og-image.jpg` in OG/Twitter tags; this file does not exist yet — generate a 1200×630px branded image using the logo and brand colors and save it there
 - **colors.css** — listed in `brand_assets/` but not yet generated; create it with all brand tokens as CSS custom properties
-- **Deployment prep** — before going live, adjust all file paths so they work when `src/` contents are served from the GoDaddy domain root (`public_html/`)
+- **Deployment prep** — ✅ done 2026-09-21. All internal links are root-relative and assume the deployed layout, where `src/` and `public/` are both flattened into `public_html/`. `public/.htaccess` supplies the clean-URL rewrites the canonical tags and sitemap already assume. Upload map and verification steps: `docs/deploy-godaddy.md`
 - **301 redirect** — ✅ done. `coopertowndogwalking.com` → `dogwalkin.com` returns a 301 (verified 2026-08-23). No further action.
 - **Peter Cooper Village in schema** — intentionally kept in `areaServed` in the LocalBusiness JSON-LD (it is a real service area); removed from all visible brand copy per client request
 

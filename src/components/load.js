@@ -7,12 +7,12 @@
  *   <div id="nav-root"></div>
  *   ...page content...
  *   <div id="footer-root"></div>
- *   <script type="module" src="/src/components/load.js"></script>
+ *   <script type="module" src="/components/load.js"></script>
  */
 
 const [navHtml, footHtml] = await Promise.all([
-  fetch('/src/components/nav.html').then(r => r.text()),
-  fetch('/src/components/footer.html').then(r => r.text()),
+  fetch('/components/nav.html').then(r => r.text()),
+  fetch('/components/footer.html').then(r => r.text()),
 ]);
 
 // Inject nav

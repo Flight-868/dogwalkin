@@ -25,7 +25,7 @@ const MIME = {
   '.webmanifest': 'application/manifest+json',
 };
 
-// Clean URL → file mapping
+// Clean URL → file mapping, matching the .htaccess rewrite rules
 const ROUTES = {
   '/':         'src/index.html',
   '/services': 'src/services.html',
@@ -33,41 +33,48 @@ const ROUTES = {
   '/contact':  'src/contact.html',
 };
 
+// On GoDaddy, src/ and public/ are both flattened into public_html/, so a
+// path like /style.css or /components/load.js sits at the domain root. These
+// prefixes are tried in order so localhost resolves paths exactly the way
+// production will — otherwise a path that works here 404s once deployed.
+const ROOTS = ['src', 'public', '.'];
+
 const server = http.createServer((req, res) => {
-  let urlPath = req.url.split('?')[0].split('#')[0];
+  const urlPath = req.url.split('?')[0].split('#')[0];
 
-  // Try clean-URL route first
-  const routeFile = ROUTES[urlPath];
-  const filePath = routeFile
-    ? path.join(__dirname, routeFile)
-    : path.join(__dirname, urlPath);
-
-  fs.readFile(filePath, (err, data) => {
-    if (err) {
-      // Fallback: public/ mirrors the domain root (favicon.ico, robots.txt, etc.)
-      const publicPath = path.join(__dirname, 'public', urlPath);
-      fs.readFile(publicPath, (err2, data2) => {
-        if (err2) {
-          res.writeHead(404, { 'Content-Type': 'text/plain' });
-          res.end(`404 Not Found: ${urlPath}`);
-          return;
-        }
-        const ext2 = path.extname(publicPath).toLowerCase();
-        res.writeHead(200, { 'Content-Type': MIME[ext2] || 'application/octet-stream' });
-        res.end(data2);
-      });
-      return;
-    }
+  const send = (filePath) => {
     const ext = path.extname(filePath).toLowerCase();
     res.writeHead(200, { 'Content-Type': MIME[ext] || 'application/octet-stream' });
-    res.end(data);
-  });
+    res.end(fs.readFileSync(filePath));
+  };
+
+  // 1. Clean-URL route
+  const route = ROUTES[urlPath];
+  if (route) {
+    const full = path.join(__dirname, route);
+    if (fs.existsSync(full)) return send(full);
+  }
+
+  // 2. Each deployment root, in priority order
+  let rel = urlPath;
+  while (rel[0] === '/') rel = rel.slice(1);
+  for (const root of ROOTS) {
+    const full = path.join(__dirname, root, rel);
+    if (fs.existsSync(full) && fs.statSync(full).isFile()) return send(full);
+  }
+
+  // 3. Extensionless fallback, mirroring the .htaccess .html rewrite
+  for (const root of ROOTS) {
+    const full = path.join(__dirname, root, rel + '.html');
+    if (fs.existsSync(full) && fs.statSync(full).isFile()) return send(full);
+  }
+
+  res.writeHead(404, { 'Content-Type': 'text/plain' });
+  res.end(`404 Not Found: ${urlPath}`);
 });
 
 server.listen(PORT, () => {
   console.log(`Dev server → http://localhost:${PORT}`);
-  console.log('  /          src/index.html');
-  console.log('  /services  src/services.html');
-  console.log('  /about     src/about.html');
-  console.log('  /contact   src/contact.html');
+  console.log('  resolves /  /services  /about  /contact');
+  console.log('  roots: src/ → public/ → project root (mirrors public_html/)');
 });
