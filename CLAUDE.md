@@ -47,8 +47,6 @@ dogwalkin/
 │   ├── sitemap.xml                   ← all four pages, canonical dogwalkin.com URLs
 │   └── robots.txt                    ← Allow: / + sitemap reference
 │
-├── .env                              ← Stripe keys (never committed)
-├── .env.example                      ← blank key placeholders, safe to commit
 ├── .gitignore                        ← includes .env, node_modules, screenshots
 ├── serve.mjs                         ← dev server, serves project root at localhost:3000
 ├── screenshot.mjs                    ← Puppeteer screenshot tool
@@ -60,8 +58,8 @@ dogwalkin/
 - All pages go in `src/` — never in the project root
 - All brand files (logo, photos, guidelines) go in `brand_assets/` — never inline or in `src/`
 - Static files that are served as-is (`sitemap.xml`, `robots.txt`) go in `public/`
-- Never hardcode Stripe keys — read from `.env` only
-- Never commit `.env` or `temporary screenshots/`
+- Stripe needs no keys — the site links to a hosted Payment Link URL (see Stripe Integration)
+- Never commit `temporary screenshots/`
 
 ---
 
@@ -353,7 +351,9 @@ Add this as a second `<script type="application/ld+json">` block on the Services
 
 ## Stripe Integration
 
-> ⚠️ **Incomplete — awaiting client keys.** Do not build the payment flow until this section is marked complete. Use a clearly labelled placeholder button ("Pay Now — coming soon") wherever payment would appear.
+> ⚠️ **Incomplete — awaiting the Payment Link URL from David.** Use the clearly labelled placeholder button ("Pay Now — coming soon") until it arrives.
+>
+> **No Stripe API keys are involved.** A Payment Link is a plain URL on a Stripe-hosted page, so the site never loads Stripe.js and has nothing to authenticate. If you find yourself wanting a `pk_live_` or `sk_live_` key, the approach has drifted — re-read the decisions below.
 
 ### What is being replaced
 The existing GoDaddy online bill pay page is being removed entirely. All payments will be handled through Stripe. Do not link to the old payment page anywhere on the new site.
@@ -361,14 +361,16 @@ The existing GoDaddy online bill pay page is being removed entirely. All payment
 ### Decisions already made
 - **Approach: Stripe Payment Links** — David creates payment links in the Stripe dashboard, the site links to them. Zero backend required, no server-side code, no webhooks needed.
 - **Payment type: Open-ended** — clients owe variable amounts per month, not fixed service prices. David sends each client a custom Payment Link for their balance.
-- **No webhooks** — Stripe handles confirmation emails automatically. No webhook signing secret needed. Remove `STRIPE_WEBHOOK_SECRET=` from `.env.example`.
+- **No webhooks** — Stripe handles confirmation emails automatically. No webhook signing secret needed.
+- **No API keys, no `.env`** — decided 2026-09-21. A publishable key is only needed for Stripe.js, Elements, or embedded Checkout, none of which this site uses; a secret key has no place in a project with no backend. `.env.example` was deleted rather than left as an invitation to paste a live key next to a static site.
 - **No client portal** — one-way payment is sufficient for this business.
 - **Refund policy** — clients contact David directly. No automated refunds needed.
 
 ### Still pending from client
-- Does David already have a Stripe account, or does he need to create one?
-- Once account exists: Publishable key (`pk_live_...`) — safe for frontend, goes in `.env`
-- Once account exists: Payment Link URL(s) for each service tier
+- Payment Link URL (`https://buy.stripe.com/...`) — the only thing needed
+- Ask him to enable **"let customers choose what they pay"** on the link. Balances vary month to month, so one reusable link beats creating a new one per client per month.
+
+David confirmed 2026-09-21 that he already has a Stripe account — no signup needed.
 
 ### Where payment appears in the site
 | Page | Placement | Current state |
@@ -377,10 +379,9 @@ The existing GoDaddy online bill pay page is being removed entirely. All payment
 | `/` | Not shown — payment is post-service | — |
 | `/contact` | Not shown — booking is free | — |
 
-### Implementation (when keys arrive)
-- Store publishable key in `.env` as `STRIPE_PUBLISHABLE_KEY=pk_live_...`
-- Replace placeholder button href with the Stripe-generated Payment Link URL
-- No backend, no serverless functions, no webhook endpoint needed
+### Implementation (when the link arrives)
+- Replace the placeholder button's `href` with the Payment Link URL — that is the entire change
+- No keys, no `.env`, no backend, no serverless functions, no webhook endpoint
 
 ---
 
@@ -404,8 +405,7 @@ These items cannot be completed until the client provides information. Do not st
 
 | Item | What's needed | Where it's used |
 |------|--------------|-----------------|
-| Stripe account | Does David have an existing Stripe account? If yes: publishable key (`pk_live_...`). If no: he needs to create one at stripe.com | Services page bill pay section |
-| Web3Forms access key | David verifies coopertowndogwalking@gmail.com at web3forms.com and pastes back the key. **Required — the contact form cannot send without it.** See `docs/contact-form-setup.md` | `src/contact.html` — `DAVID_ACCESS_KEY_HERE` |
+| Stripe Payment Link | David creates a Payment Link in his existing Stripe dashboard (ideally with "customers choose what they pay" enabled) and pastes back the `buy.stripe.com` URL. No API keys needed | Services page bill pay section |
 | Apps Script log URL | David deploys `docs/inquiry-log.gs` from a Google Sheet and pastes back the `/exec` URL. Optional — the form sends without it, but there is no durable inquiry log | `src/contact.html` — `DAVID_APPS_SCRIPT_URL_HERE` |
 
 ---
