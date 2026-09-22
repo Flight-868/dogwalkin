@@ -454,10 +454,12 @@
     // JSON result, which is what lets us show a real success/error state.
     endpoint: 'https://api.web3forms.com/submit',
 
-    // PENDING CLIENT: Apps Script /exec URL that appends each inquiry to the
-    // Google Sheet log. Leave as-is until David deploys it — the form still
-    // works without it. See docs/contact-form-setup.md
-    logEndpoint: 'DAVID_APPS_SCRIPT_URL_HERE'
+    // Apps Script /exec URL that appends each inquiry to David's Google Sheet
+    // log. Deployed and tested 2026-09-22. The form still sends without it, so
+    // a broken or redeployed URL degrades to email-only. Re-deploying the
+    // script mints a new /exec URL — update it here when that happens.
+    // See docs/contact-form-setup.md
+    logEndpoint: 'https://script.google.com/macros/s/AKfycbw356ROTKOEeTG2SAz9qx1-wlC5Z0I0FaUzF92x3CFGSsYXP3UFx_bs76vXVtjJDWKx/exec'
   };
 
   var form     = document.getElementById('contact-form');

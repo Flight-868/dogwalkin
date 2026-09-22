@@ -353,7 +353,7 @@ Add this as a second `<script type="application/ld+json">` block on the Services
 
 ## Stripe Integration
 
-> ⚠️ **Incomplete — awaiting the Payment Link URL from David.** Use the clearly labelled placeholder button ("Pay Now — coming soon") until it arrives.
+> ✅ **Live — done 2026-09-22.** The Services bill pay button links to `https://buy.stripe.com/eVq7sM6t07fMdAU6AsgYU00`. Nothing further is pending.
 >
 > **No Stripe API keys are involved.** A Payment Link is a plain URL on a Stripe-hosted page, so the site never loads Stripe.js and has nothing to authenticate. If you find yourself wanting a `pk_live_` or `sk_live_` key, the approach has drifted — re-read the decisions below.
 
@@ -368,22 +368,21 @@ The existing GoDaddy online bill pay page is being removed entirely. All payment
 - **No client portal** — one-way payment is sufficient for this business.
 - **Refund policy** — clients contact David directly. No automated refunds needed.
 
-### Still pending from client
-- Payment Link URL (`https://buy.stripe.com/...`) — the only thing needed
-- Ask him to enable **"let customers choose what they pay"** on the link. Balances vary month to month, so one reusable link beats creating a new one per client per month.
-
-David confirmed 2026-09-21 that he already has a Stripe account — no signup needed.
+### Payment Link
+- URL: `https://buy.stripe.com/eVq7sM6t07fMdAU6AsgYU00` — supplied by David 2026-09-22.
+- The link should have **"let customers choose what they pay"** enabled, since balances vary month to month and one reusable link serves every client. Confirm with David if a payment ever arrives with the wrong amount.
 
 ### Where payment appears in the site
 | Page | Placement | Current state |
 |------|-----------|---------------|
-| `/services` | "Pay Now" button in bill pay section (section 6) | Placeholder only |
+| `/services` | "Pay Now" button in bill pay section (section 6) | Live — links to the Payment Link |
 | `/` | Not shown — payment is post-service | — |
 | `/contact` | Not shown — booking is free | — |
 
-### Implementation (when the link arrives)
-- Replace the placeholder button's `href` with the Payment Link URL — that is the entire change
+### Implementation
+- The button is a plain `<a>` to the Payment Link, opening in a new tab — that is the whole integration
 - No keys, no `.env`, no backend, no serverless functions, no webhook endpoint
+- To change the link later, edit the one `href` in `src/services.html` (section 6)
 
 ---
 
@@ -403,12 +402,14 @@ David confirmed 2026-09-21 that he already has a Stripe account — no signup ne
 
 ## Pending — Waiting on Client
 
-These items cannot be completed until the client provides information. Do not stub, guess, or skip — leave placeholders and note them clearly in code comments.
+Nothing outstanding. Both items that were blocked on David are resolved:
 
-| Item | What's needed | Where it's used |
-|------|--------------|-----------------|
-| Stripe Payment Link | David creates a Payment Link in his existing Stripe dashboard (ideally with "customers choose what they pay" enabled) and pastes back the `buy.stripe.com` URL. No API keys needed | Services page bill pay section |
-| Apps Script log URL | David deploys `docs/inquiry-log.gs` from a Google Sheet and pastes back the `/exec` URL. Optional — the form sends without it, but there is no durable inquiry log | `src/contact.html` — `DAVID_APPS_SCRIPT_URL_HERE` |
+| Item | Resolved | Where it lives |
+|------|----------|----------------|
+| Stripe Payment Link | 2026-09-22 — live link installed | `src/services.html` bill pay section |
+| Apps Script log URL | 2026-09-22 — deployed from David's account and tested | `src/contact.html` — `CONFIG.logEndpoint`; deployment ID recorded in `docs/contact-form-setup.md` |
+
+If a new item ever blocks on the client, add it back here — do not stub, guess, or skip; leave a placeholder and note it clearly in a code comment.
 
 ---
 
@@ -475,5 +476,5 @@ These items cannot be completed until the client provides information. Do not st
 - Do not use default Tailwind blue/indigo as primary color
 - Do not use stock photography — real photos only
 - Do not link to or reference the old GoDaddy bill pay page — it is being replaced by Stripe
-- Do not build the Stripe payment flow until the Stripe section above is marked complete — use a placeholder button instead
+- Do not add Stripe.js, Elements, Checkout, API keys, or a backend to the payment flow — the hosted Payment Link is the whole integration
 - Do not skip or stub out SEO tags — every page must ship with correct title, meta description, canonical, OG tags, and schema before it is considered done

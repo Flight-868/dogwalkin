@@ -11,9 +11,10 @@ Two independent writes means a single outage never loses an inquiry. Email
 delivery can fail and the Sheet still has the record; the Sheet can fail and
 the email still arrives.
 
-Step 1 is **done** — the access key is in place and the form can send. Step 3
-is still open; the form works without it, but there is no durable log until it
-is deployed.
+All three steps are **done** as of 2026-09-22: the access key is in place, the
+Gmail filter is set, and the Sheet log is deployed and tested. What follows is
+the record of how each was set up and the monitoring routine that keeps them
+honest.
 
 ---
 
@@ -31,7 +32,7 @@ page source — it cannot be used to mail anyone else.
 
 Free tier: 250 submissions/month, unlimited forms, spam filtering.
 
-## Step 2 — Gmail filter (required, do this first)
+## Step 2 — Gmail filter ✅ done
 
 The single most likely failure is a real inquiry landing in spam. Prevent it
 before the first one arrives.
@@ -45,7 +46,24 @@ In Gmail → **Settings → Filters and Blocked Addresses → Create a new filte
 That label is the permanent email archive. Gmail keeps it indefinitely and
 it is fully searchable — better retention than any form service's dashboard.
 
-## Step 3 — Google Sheet log (recommended)
+## Step 3 — Google Sheet log ✅ done
+
+Deployed from **coopertowndogwalking@gmail.com** and confirmed with a test
+submission on 2026-09-22.
+
+| | |
+|---|---|
+| Deployment ID | `AKfycbw356ROTKOEeTG2SAz9qx1-wlC5Z0I0FaUzF92x3CFGSsYXP3UFx_bs76vXVtjJDWKx` |
+| `/exec` URL | `https://script.google.com/macros/s/AKfycbw356ROTKOEeTG2SAz9qx1-wlC5Z0I0FaUzF92x3CFGSsYXP3UFx_bs76vXVtjJDWKx/exec` |
+| Wired into | [`src/contact.html`](../src/contact.html) — `CONFIG.logEndpoint` |
+
+Keep the **deployment ID** above. If the log ever goes quiet, the first thing
+to check is whether the URL in `contact.html` still contains that ID — a
+redeploy mints a new one and silently orphans the old (see the warning at the
+end of this section).
+
+The setup steps below are kept as the record of how it was built, and as the
+instructions to follow if it ever has to be rebuilt.
 
 ### Whose Drive it lives in
 
@@ -88,8 +106,8 @@ stays with the original account, so it needs a fresh deploy regardless.
      rejects every submission silently.
 5. Approve the authorization prompts — see below
 6. Copy the `/exec` URL it produces
-7. In [`src/contact.html`](../src/contact.html), replace `DAVID_APPS_SCRIPT_URL_HERE`
-   in the `CONFIG` block with that URL
+7. Paste that URL into the `CONFIG.logEndpoint` value in
+   [`src/contact.html`](../src/contact.html)
 
 The `Inquiries` tab and its headers are created automatically on the first
 submission, so an empty Sheet immediately after setup is expected.
@@ -135,6 +153,33 @@ Open the Apps Script `/exec` URL in a browser:
 
 If `lastReceived` is older than you would expect given normal traffic,
 something upstream is broken.
+
+### If the canary fails with a CORS error
+
+Check whether the browser can reach `api.web3forms.com` **at all** before
+touching the form code:
+
+```js
+// in the browser console, on any page
+fetch('https://api.web3forms.com/', { mode: 'no-cors' })
+```
+
+If that throws, the host is blocked by the network, DNS filter, or security
+software on that machine — not by the site. Chrome reports this as
+*"No 'Access-Control-Allow-Origin' header is present"*, which reads like a
+server misconfiguration and is not one. This happened on the dev machine on
+2026-09-22: `curl` reached the API fine while Chrome could not reach it at
+all, so an in-browser test was impossible there.
+
+Web3Forms' CORS is correct: `OPTIONS` returns 200 with
+`access-control-allow-origin: *` and allows `Content-Type`, so the JSON POST
+in `contact.html` is fine as written. Testing it with bare `curl -X OPTIONS`
+returns a misleading 403 — Cloudflare blocks the default curl user-agent.
+Send a browser `User-Agent` header when probing by hand.
+
+Also expect the occasional *"Sorry, unable to open the file at this time"*
+HTML page from the health-check URL. It is a transient Google error; retry
+before concluding the deployment is broken.
 
 ### Monthly canary
 
