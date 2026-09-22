@@ -138,7 +138,7 @@ Global footer   (all pages)
 - Phone, email (both clickable)
 - Facebook icon link
 - Instagram icon → https://www.instagram.com/coopertowndogwalking/
-- Copyright: © 2025 Dog Walkin.com — All rights reserved
+- Copyright: © 2026 Dog Walkin.com — All rights reserved
 
 ---
 
