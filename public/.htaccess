@@ -31,6 +31,11 @@ DirectoryIndex index.html
   # otherwise exist for every page. %{THE_REQUEST} is used so this only
   # fires on real browser requests, never on the internal rewrite below
   # (which would otherwise loop).
+  # components/ is excluded: load.js fetches nav.html and footer.html by
+  # their real filenames on every page view, and they are never linked or
+  # indexed, so redirecting them would only add two round trips before the
+  # nav and footer can render.
+  RewriteCond %{REQUEST_URI} !^/components/ [NC]
   RewriteCond %{THE_REQUEST} \s/([^?\s]+)\.html[\s?] [NC]
   RewriteRule ^ /%1 [R=301,L]
 
