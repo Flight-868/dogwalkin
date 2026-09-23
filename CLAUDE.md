@@ -394,10 +394,11 @@ The existing GoDaddy online bill pay page is being removed entirely. All payment
 - **Booking** — no calendar or scheduler. Decided 2026-09-01: the contact form (plus the direct call/email card) is the booking path, permanently. Do not add Cal.com, a W+M subdomain, or any other scheduling widget.
 - **Accessibility** — all images need descriptive alt text; color contrast must meet WCAG AA
 - **Instagram embed** — feed appears on Home (section 5) and About (section 6); a real embed requires an API token or a third-party service (Embedsocial, Behold, etc.); local photos from `brand_assets/photos/` are a stand-in only
-- **OG image** — all pages reference `brand_assets/og-image.jpg` in OG/Twitter tags; this file does not exist yet — generate a 1200×630px branded image using the logo and brand colors and save it there
-- **colors.css** — listed in `brand_assets/` but not yet generated; create it with all brand tokens as CSS custom properties
-- **Deployment prep** — ✅ done 2026-09-21. All internal links are root-relative and assume the deployed layout, where `src/` and `public/` are both flattened into `public_html/`. `public/.htaccess` supplies the clean-URL rewrites the canonical tags and sitemap already assume. Upload map and verification steps: `docs/deploy-godaddy.md`
-- **301 redirect** — ✅ done. `coopertowndogwalking.com` → `dogwalkin.com` returns a 301 (verified 2026-08-23). No further action.
+- **OG image** — ✅ `brand_assets/og-image.jpg` exists, 1200×630, referenced by every page's OG/Twitter tags
+- **colors.css** — ✅ `brand_assets/colors.css` exists with the brand tokens as CSS custom properties
+- **Live** — ✅ launched 2026-09-22 on GoDaddy Web Hosting Deluxe (cPanel), server IP `132.148.176.182`, replacing the Website Builder site. All internal links are root-relative and assume the deployed layout, where `src/` and `public/` are both flattened into `public_html/`. `public/.htaccess` supplies the clean-URL rewrites the canonical tags and sitemap already assume, plus 301s from the old Website Builder slugs (`/about-us`, `/pricing`, `/m/…`). Upload map and verification steps: `docs/deploy-godaddy.md`
+- **Old-domain redirect** — ✅ done 2026-09-22. `coopertowndogwalking.com` is an addon domain on the same hosting, with its own document root (`public_html/coopertowndogwalking.com/`, mirrored at `public/coopertowndogwalking.com/`) whose `.htaccess` 301s every request — http or https, bare or www, any path — to the same path on `https://dogwalkin.com`. It has its own AutoSSL certificate. The earlier GoDaddy domain forwarding it replaced only ever redirected `http://` on the bare root.
+- **Email on both domains is Microsoft 365** — when editing DNS for either domain, touch only the `A` record. The `MX`, `TXT` (SPF + Microsoft verification), and `autodiscover` CNAME records carry the mail.
 - **Peter Cooper Village in schema** — intentionally kept in `areaServed` in the LocalBusiness JSON-LD (it is a real service area); removed from all visible brand copy per client request
 
 ## Pending — Waiting on Client

@@ -15,7 +15,7 @@ folder names.
 | `src/style.css` | `public_html/style.css` | |
 | `src/components/` | `public_html/components/` | Keeps its folder name |
 | `brand_assets/` | `public_html/brand_assets/` | Whole folder, keeps its name |
-| `public/*` | `public_html/` | Contents move up: `.htaccess`, `robots.txt`, `sitemap.xml`, `favicon.ico`, `site.webmanifest`, `icons/` |
+| `public/*` | `public_html/` | Contents move up: `.htaccess`, `robots.txt`, `sitemap.xml`, `favicon.ico`, `site.webmanifest`, `icons/`, `coopertowndogwalking.com/` |
 
 Resulting structure:
 
@@ -27,7 +27,15 @@ public_html/
 ├── components/    nav.html  footer.html  load.js
 ├── brand_assets/  *.svg  og-image.jpg  colors.css  photos/
 ├── icons/
+├── coopertowndogwalking.com/   .htaccess only — the old domain's redirect
 ├── favicon.ico  robots.txt  sitemap.xml  site.webmanifest
+```
+
+**After any upload, reset permissions** in cPanel → Terminal. Zips built on
+Windows extract as world-writable (`0666` files, `0777` folders):
+
+```
+find ~/public_html -type d -exec chmod 755 {} + ; find ~/public_html -type f -exec chmod 644 {} +
 ```
 
 **Do not upload:** `CLAUDE.md`, `docs/`, `node_modules/`, `serve.mjs`,
@@ -86,9 +94,22 @@ https://dogwalkin.com/about/   → 301 → https://dogwalkin.com/about
 A 200 instead of a 301 means Google will index two URLs for one page, which is
 the specific SEO problem this rebuild exists to fix.
 
-**5. The old domain still redirects.** `coopertowndogwalking.com` → 301 →
-`dogwalkin.com`. This was verified 2026-08-23 and is independent of this
-upload, but confirm it survived.
+**5. The old domain redirects — every variant.** `coopertowndogwalking.com`
+is an addon domain on this hosting; its folder's `.htaccess` 301s everything
+to the same path on `https://dogwalkin.com`. Check more than the bare root —
+the GoDaddy forwarding this replaced passed that one case and failed all the
+others:
+
+```
+http://coopertowndogwalking.com/            → 301 → https://dogwalkin.com/
+https://coopertowndogwalking.com/about-us   → 301 → https://dogwalkin.com/about-us → 301 → /about
+https://www.coopertowndogwalking.com/pricing → 301 → … → https://dogwalkin.com/services
+```
+
+In cPanel → SSL/TLS Status, AutoSSL reports errors for
+`coopertowndogwalking.dogwalkin.com` and its `www`. Those are subdomains cPanel
+creates internally for every addon domain; they have no DNS and need no
+certificate. Exclude them from AutoSSL to silence the error.
 
 **6. Submit the contact form once.** This is the real test — it is the booking
 path, and it exercises the page, its JavaScript, and the outbound request
