@@ -21,6 +21,16 @@ DirectoryIndex index.html
   RewriteCond %{HTTP_HOST} ^www\. [NC]
   RewriteRule ^(.*)$ https://dogwalkin.com/$1 [R=301,L]
 
+  # ── Old Website Builder URLs ───────────────────────────────────────
+  # The previous site (GoDaddy Website Builder, replaced 2026-09-22) used
+  # different page slugs, and search results and bookmarks still point at
+  # them — on this domain and, via its own .htaccess, on
+  # coopertowndogwalking.com. /m/ was the builder's member area (account,
+  # bookings, sign-up); booking now runs through the contact form.
+  RewriteRule ^about-us/?$ /about    [R=301,L,NC]
+  RewriteRule ^pricing/?$  /services [R=301,L,NC]
+  RewriteRule ^m(/.*)?$    /contact  [R=301,L,NC]
+
   # ── Strip trailing slashes (except the root) ───────────────────────
   # /about/ → /about. Skips real directories so brand_assets/ still works.
   RewriteCond %{REQUEST_FILENAME} !-d

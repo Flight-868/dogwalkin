@@ -1,0 +1,23 @@
+# coopertowndogwalking.com — the old brand domain
+# ----------------------------------------------------------------------
+# This folder is the domain's document root (a cPanel addon domain, at
+# public_html/coopertowndogwalking.com/). It serves no pages: every request,
+# on http or https, bare or www, is sent to the same path on the canonical
+# domain with a single 301. Old slugs like /about-us are then mapped to
+# their new pages by the main public_html/.htaccess.
+#
+# Rewrite rules are not inherited from the parent .htaccess once this file
+# turns the engine on, so the main site's rules never run here.
+
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Let AutoSSL's domain-validation requests through. Redirecting them to
+  # dogwalkin.com would make validation fail, and this domain could then
+  # never get (or renew) the certificate that makes https:// work.
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+
+  RewriteRule ^(.*)$ https://dogwalkin.com/$1 [R=301,L]
+</IfModule>
