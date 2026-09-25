@@ -3,7 +3,7 @@
 ---
 
 ## Always Do First
-- **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
+- For design choices this file doesn't already settle, use the `frontend-design-studio` skill. Where it conflicts with this file or the brand assets, this file wins.
 - **Read this entire file** before writing a single line of code.
 - **Check `brand_assets/`** for the logo SVG, color guide, and any images before designing.
 
@@ -232,7 +232,7 @@ Cat visits include: feeding, litter box cleaning, playtime, medicine, brushing, 
 
 ## SEO Requirements
 
-Implement all of the following on every page, no exceptions. The current site has significant SEO deficiencies — this rebuild must fix all of them.
+Every page implements all of the following.
 
 ### Domain redirect
 - `coopertowndogwalking.com` must 301 redirect permanently to `dogwalkin.com`
@@ -358,7 +358,7 @@ Add this as a second `<script type="application/ld+json">` block on the Services
 > **No Stripe API keys are involved.** A Payment Link is a plain URL on a Stripe-hosted page, so the site never loads Stripe.js and has nothing to authenticate. If you find yourself wanting a `pk_live_` or `sk_live_` key, the approach has drifted — re-read the decisions below.
 
 ### What is being replaced
-The existing GoDaddy online bill pay page is being removed entirely. All payments will be handled through Stripe. Do not link to the old payment page anywhere on the new site.
+All payments go through Stripe. The old GoDaddy bill pay page is retired — do not link to it anywhere.
 
 ### Decisions already made
 - **Approach: Stripe Payment Links** — David creates payment links in the Stripe dashboard, the site links to them. Zero backend required, no server-side code, no webhooks needed.
@@ -417,8 +417,8 @@ If a new item ever blocks on the client, add it back here — do not stub, guess
 ## Workflow Rules
 
 ### Reference images
-- If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
-- If no reference image: design from scratch with high craft (see guardrails below).
+- If a reference image is provided: match its layout, spacing, typography, and color exactly, using the real copy in this file and the real assets in `brand_assets/`. Do not improve or add to the design.
+- If no reference image: design within the brand tokens and guardrails below.
 - Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when no visible differences remain or user says so.
 
 ### Local server
@@ -428,7 +428,7 @@ If a new item ever blocks on the client, add it back here — do not stub, guess
 - If the server is already running, do not start a second instance.
 
 ### Screenshot workflow
-- Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
+- `screenshot.mjs` uses `puppeteer-core` (project dependency) driving the installed Chrome at `C:/Program Files/Google/Chrome/Application/chrome.exe`.
 - **Before taking the first screenshot of a new session:** archive the previous generation by moving everything currently in `temporary screenshots/` (except the `previous/` folder itself) into `temporary screenshots/previous/`, replacing whatever was there. This keeps exactly one prior generation on hand for before/after comparison without letting the folder grow unbounded.
   - `mkdir -p "temporary screenshots/previous" && find "temporary screenshots" -maxdepth 1 -type f -exec rm -f "temporary screenshots/previous/{}" \; -exec mv {} "temporary screenshots/previous/" \;`
   - (Windows/PowerShell equivalent: `New-Item -ItemType Directory -Force "temporary screenshots\previous" | Out-Null; Remove-Item "temporary screenshots\previous\*" -File -ErrorAction SilentlyContinue; Get-ChildItem "temporary screenshots" -File | Move-Item -Destination "temporary screenshots\previous"`)
@@ -442,9 +442,7 @@ If a new item ever blocks on the client, add it back here — do not stub, guess
 - Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing
 
 ### Output defaults
-- Single `index.html` file, all styles inline, unless user says otherwise
-- Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
-- Placeholder images: `https://placehold.co/WIDTHxHEIGHT`
+- Hand-written HTML pages in `src/` sharing `src/style.css` — no framework, no Tailwind
 - Mobile-first responsive
 
 ### Brand assets
@@ -456,14 +454,14 @@ If a new item ever blocks on the client, add it back here — do not stub, guess
 
 ## Anti-Generic Guardrails
 
-- **Colors:** Never use default Tailwind palette (indigo-500, blue-600, etc.). Use the brand tokens defined above.
-- **Shadows:** Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
+- **Colors:** Use only the brand tokens defined above.
+- **Shadows:** Layered, color-tinted shadows with low opacity — not a single flat drop shadow.
 - **Typography:** Never use the same font for headings and body. Georgia for display, Arial for body — see typography table above.
 - **Gradients:** Layer multiple radial gradients. Add grain/texture via SVG noise filter for depth.
 - **Animations:** Only animate `transform` and `opacity`. Never `transition-all`. Use spring-style easing.
 - **Interactive states:** Every clickable element needs hover, focus-visible, and active states. No exceptions.
-- **Images:** Add a gradient overlay (`bg-gradient-to-t from-black/60`) and a color treatment layer with `mix-blend-multiply`.
-- **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
+- **Images:** Where text sits on a photo, add a bottom-up dark gradient overlay (about 60% black) so the text stays legible.
+- **Spacing:** Use a consistent spacing scale — not ad-hoc values.
 - **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
 
 ---
@@ -474,8 +472,7 @@ If a new item ever blocks on the client, add it back here — do not stub, guess
 - Do not "improve" a reference design — match it
 - Do not stop after one screenshot pass
 - Do not use `transition-all`
-- Do not use default Tailwind blue/indigo as primary color
 - Do not use stock photography — real photos only
-- Do not link to or reference the old GoDaddy bill pay page — it is being replaced by Stripe
+- Do not link to or reference the old GoDaddy bill pay page
 - Do not add Stripe.js, Elements, Checkout, API keys, or a backend to the payment flow — the hosted Payment Link is the whole integration
 - Do not skip or stub out SEO tags — every page must ship with correct title, meta description, canonical, OG tags, and schema before it is considered done
