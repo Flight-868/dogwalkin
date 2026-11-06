@@ -31,6 +31,14 @@ DirectoryIndex index.html
   RewriteRule ^pricing/?$  /services [R=301,L,NC]
   RewriteRule ^m(/.*)?$    /contact  [R=301,L,NC]
 
+  # ── Blog ───────────────────────────────────────────────────────────
+  # /blog is both a page (blog.html) and a real directory of posts
+  # (blog/<slug>.html). Without these two rules Apache's DirectorySlash
+  # would 301 /blog to /blog/ and then find no index file there. Posts at
+  # /blog/<slug> are served by the clean-URL rule at the bottom.
+  RewriteRule ^blog/$ /blog [R=301,L]
+  RewriteRule ^blog$ blog.html [L]
+
   # ── Strip trailing slashes (except the root) ───────────────────────
   # /about/ → /about. Skips real directories so brand_assets/ still works.
   RewriteCond %{REQUEST_FILENAME} !-d

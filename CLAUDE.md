@@ -34,6 +34,9 @@ dogwalkin/
 │   ├── services.html                 ← Services & Pricing (/services)
 │   ├── about.html                    ← About (/about)
 │   ├── contact.html                  ← Contact & Book (/contact)
+│   ├── blog.html                     ← Blog listing (/blog) — built, not launched
+│   ├── blog/
+│   │   └── post-template.html        ← copy to blog/<slug>.html for each post
 │   ├── style.css                     ← shared styles and brand token variables
 │   └── components/
 │       ├── nav.html                  ← global nav bar partial
@@ -120,6 +123,9 @@ Global nav bar  (sticky, all pages)
 ├── /services        Services & Pricing
 ├── /about           About
 └── /contact         Contact & Book
+
+/blog              Blog listing (built 2026-11-06, not linked yet — see Blog below)
+└── /blog/<slug>     Individual posts
 
 Global footer   (all pages)
 └── Instagram ↗  https://www.instagram.com/coopertowndogwalking/  [external]
@@ -230,6 +236,27 @@ Cat visits include: feeding, litter box cleaning, playtime, medicine, brushing, 
 
 ---
 
+### `/blog` — Blog
+
+Built 2026-11-06, **not launched**: left out of the nav, footer, and sitemap, and both pages carry `noindex` until real posts exist.
+
+**Decisions (2026-11-06):** a listing page plus a post template. Posts are hand-written HTML: no CMS, no JSON feed, no build step. The listing shows sample cards (gold "Sample" badge, `class="is-sample"`) that are deleted as real posts go in.
+
+| # | Section | Key content |
+|---|---------|-------------|
+| 1 | **Header** | `--teal-mist` band, H1, lead |
+| 2 | **Featured post** | Newest post, large photo + text card floating over the header edge |
+| 3 | **More from the blog** | 3-column card grid, newest first |
+| 4 | **Booking CTA strip** | Same teal band as Home |
+
+- Post files: `src/blog/<slug>.html` → `https://dogwalkin.com/blog/<slug>`. The publishing checklist is in a comment at the top of `src/blog/post-template.html`.
+- Every post: exactly one H1 (the title, with a service and a neighborhood keyword where natural), full SEO head tags, LocalBusiness + BlogPosting JSON-LD, real photos only.
+- `/blog` is both a page and a folder, so `public/.htaccess` and `serve.mjs` each have an explicit `/blog` rule.
+- Shared blog styles live at the end of `src/style.css`.
+- **To launch:** remove `noindex` from `src/blog.html`, add a Blog link to `components/nav.html` and `components/footer.html`, add `/blog` and each post URL to `public/sitemap.xml`, delete the sample cards.
+
+---
+
 ## SEO Requirements
 
 Every page implements all of the following.
@@ -250,6 +277,7 @@ Every page implements all of the following.
 | `/` | `Dog Walking & Pet Sitting \| Stuyvesant Town · East Village · Gramercy \| Dog Walkin.com` | `Professional dog walking and cat sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days, same-day requests welcome. Call 646-580-8877.` | `Dog walking and pet sitting in your neighborhood.` |
 | `/services` | `Dog Walking Prices & Cat Visit Rates \| Stuyvesant Town NYC \| Dog Walkin.com` | `Dog walks from $15, cat visits from $25. Group walks, solo walks, potty breaks, and pet sitting in Stuyvesant Town, East Village, and Gramercy. Available 7 days a week.` | `Services & pricing for Stuyvesant Town, East Village, and Gramercy.` |
 | `/about` | `About Us \| Neighborhood Dog Walkers in Stuyvesant Town \| Dog Walkin.com` | `Born and raised in Stuyvesant Town. Led by David, our team offers dog walking and pet sitting 365 days a year with same-day requests. Your neighbors, not just your dog walkers.` | `Your neighborhood pet care team — born and raised here.` |
+| `/blog` | `Dog Walking Blog \| Pet Care Tips from Stuyvesant Town NYC \| Dog Walkin.com` | `Dog walking tips, cat care advice, and neighborhood notes from Dog Walkin.com, your Stuyvesant Town dog walkers serving the East Village, Gramercy, and Murray Hill.` | `Dog walking tips and neighborhood notes from Stuyvesant Town.` |
 | `/contact` | `Book a Dog Walker \| Stuyvesant Town & East Village NYC \| Dog Walkin.com` | `Book a free Paws & Chat meet and greet with Dog Walkin.com. Serving Stuyvesant Town, East Village, Gramercy, and Murray Hill. Call 646-580-8877 or send a message.` | `Book a walk or send us a message.` |
 
 ### Open Graph & Twitter card tags (every page)

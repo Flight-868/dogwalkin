@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!--
+    ════════════════════════════════════════════════════════════════════
+    BLOG POST TEMPLATE — how to publish a new post
+    ════════════════════════════════════════════════════════════════════
+    1. Copy this file to src/blog/<post-slug>.html. The slug is the URL:
+       winter-paw-care.html → https://dogwalkin.com/blog/winter-paw-care
+       Use lowercase words joined by hyphens.
+    2. Replace every [BRACKETED] placeholder in <head>: title, description,
+       canonical, og/twitter tags, and the BlogPosting JSON-LD.
+       - <title>: "[Post title] | Dog Walkin.com"
+       - description: one or two sentences, under ~160 characters.
+       - Use the same URL in canonical, og:url and the JSON-LD "url".
+    3. Delete the noindex line below.
+    4. Write the post inside <article class="post-body">. The sample body
+       shows every style available: paragraphs, H2/H3 subheads, lists, a
+       photo with caption, and a pull quote. Delete what you don't use.
+    5. Keep exactly one <h1>, the post title. Work a service word (dog
+       walking, cat visits, pet sitting) and a neighborhood (Stuyvesant
+       Town, East Village, Gramercy, Murray Hill) into it where it reads
+       naturally.
+    6. Photos come from /brand_assets/photos/ only (real photos, no stock).
+       Every <img> needs alt text describing what's in the photo.
+    7. Add a card for the post to src/blog.html (newest goes in the
+       featured slot) and add the URL to public/sitemap.xml.
+    Do not edit or delete this template itself; copy it.
+    ════════════════════════════════════════════════════════════════════
+  -->
+
+  <title>[Post title] | Dog Walkin.com</title>
+  <meta name="description" content="[One- or two-sentence summary of the post, under 160 characters.]">
+
+  <meta name="robots" content="noindex">
+
+  <link rel="canonical" href="https://dogwalkin.com/blog/[post-slug]">
+
+  <meta property="og:type"        content="article">
+  <meta property="og:site_name"   content="Dog Walkin.com">
+  <meta property="og:title"       content="[Post title] | Dog Walkin.com">
+  <meta property="og:description" content="[One- or two-sentence summary of the post, under 160 characters.]">
+  <meta property="og:url"         content="https://dogwalkin.com/blog/[post-slug]">
+  <meta property="og:image"       content="https://dogwalkin.com/brand_assets/og-image.jpg">
+
+  <meta name="twitter:card"        content="summary_large_image">
+  <meta name="twitter:title"       content="[Post title] | Dog Walkin.com">
+  <meta name="twitter:description" content="[One- or two-sentence summary of the post, under 160 characters.]">
+  <meta name="twitter:image"       content="https://dogwalkin.com/brand_assets/og-image.jpg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Dog Walkin.com",
+    "alternateName": "Coopertown Dog Walking",
+    "description": "Professional dog walking and pet sitting in Stuyvesant Town, East Village, Gramercy, and Murray Hill. Available 365 days a year, same-day requests welcome.",
+    "url": "https://dogwalkin.com",
+    "telephone": "+16465808877",
+    "email": "coopertowndogwalking@gmail.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "New York",
+      "addressRegion": "NY",
+      "postalCode": "10009",
+      "addressCountry": "US"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 40.7282, "longitude": -73.9782 },
+    "areaServed": [
+      { "@type": "Place", "name": "Stuyvesant Town" },
+      { "@type": "Place", "name": "Peter Cooper Village" },
+      { "@type": "Place", "name": "East Village" },
+      { "@type": "Place", "name": "Gramercy" },
+      { "@type": "Place", "name": "Murray Hill" }
+    ],
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      "opens": "06:30",
+      "closes": "20:30"
+    },
+    "sameAs": [
+      "https://www.instagram.com/coopertowndogwalking/",
+      "https://www.facebook.com/112056688654872"
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "[Post title]",
+    "description": "[One- or two-sentence summary of the post, under 160 characters.]",
+    "url": "https://dogwalkin.com/blog/[post-slug]",
+    "mainEntityOfPage": "https://dogwalkin.com/blog/[post-slug]",
+    "image": "https://dogwalkin.com/brand_assets/photos/[header-photo].jpg",
+    "datePublished": "[YYYY-MM-DD]",
+    "author": { "@type": "Person", "name": "David" },
+    "publisher": { "@type": "LocalBusiness", "name": "Dog Walkin.com", "url": "https://dogwalkin.com" }
+  }
+  </script>
+
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="icon" href="/brand_assets/dogwalkin_icon_only.svg" type="image/svg+xml">
+  <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48x48.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+
+<div id="nav-root"></div>
+
+<main id="main">
+
+  <!-- ── Post header ──────────────────────────────────── -->
+  <header class="post-header grain">
+    <div class="post-header-inner">
+      <a class="post-back" href="/blog">All posts</a>
+      <p class="blog-category">[Category: Dog care, Cat care, Walks, or Neighborhood]</p>
+      <h1>[Post title — include a service and a neighborhood where it reads naturally]</h1>
+      <p class="post-dek">[Optional one-sentence summary that sets up the post. Delete this line if you don't need it.]</p>
+      <div class="post-byline">
+        <img src="/brand_assets/photos/david-001.jpg" alt="David" width="44" height="44">
+        <p>
+          <span class="post-author">By David</span>
+          <span class="blog-meta">
+            <time datetime="[YYYY-MM-DD]">[Mon D, YYYY]</time>
+            <span>[N] min read</span>
+          </span>
+        </p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Header photo: a real photo from /brand_assets/photos/ with descriptive alt text -->
+  <figure class="post-hero-photo">
+    <img src="/brand_assets/photos/dog-025.jpg" alt="[Describe the photo, e.g. Bernedoodle at Washington Square Park in the snow]" width="1200" height="800">
+  </figure>
+
+  <!-- ── Post body ────────────────────────────────────── -->
+  <article class="post-body">
+
+    <p>[Opening paragraph. Get straight to the point: what this post is about and why it matters to a dog or cat owner in the neighborhood. Two to four sentences works well.]</p>
+
+    <p>[Body paragraph. Body text is set at a comfortable reading width, so paragraphs can run as long as they need to. <a href="/services">Links look like this</a>.]</p>
+
+    <h2>[Section heading]</h2>
+
+    <p>[Break longer posts into sections with short, plain headings that say what the section covers.]</p>
+
+    <ul>
+      <li>[List item, for tips or a packing list]</li>
+      <li>[Another item]</li>
+      <li>[Keep items short and parallel]</li>
+    </ul>
+
+    <figure>
+      <img src="/brand_assets/photos/dog-012.jpg" alt="[Describe the photo, e.g. Black lab amid cherry blossoms in Stuyvesant Town]" loading="lazy" width="1200" height="900">
+      <figcaption>[Optional caption: who's in the photo and where.]</figcaption>
+    </figure>
+
+    <h3>[Smaller subheading, if a section needs one]</h3>
+
+    <p>[More body text.]</p>
+
+    <ol>
+      <li>[Numbered list, for steps that happen in order]</li>
+      <li>[Second step]</li>
+      <li>[Third step]</li>
+    </ol>
+
+    <blockquote>
+      <p>[Pull quote: one line worth repeating, or something a client said.]</p>
+    </blockquote>
+
+    <p>[Closing paragraph. End with what the reader can do next: book a Paws &amp; Chat, call, or follow along on Instagram.]</p>
+
+  </article>
+
+  <!-- ── Author ───────────────────────────────────────── -->
+  <aside class="post-author-box" aria-label="About the author">
+    <img src="/brand_assets/photos/david-001.jpg" alt="David, lead walker and founder, smiling beside a chocolate lab on a walk in the park" loading="lazy" width="96" height="96">
+    <div>
+      <p class="post-author-name">David</p>
+      <p>Lead walker and founder of Dog Walkin.com. Born and raised in Stuyvesant Town, walking the neighborhood's dogs 365 days a year.</p>
+      <a href="https://www.instagram.com/coopertowndogwalking/" target="_blank" rel="noopener noreferrer">Follow on Instagram ↗</a>
+    </div>
+  </aside>
+
+  <nav class="post-footer-nav" aria-label="Blog">
+    <a class="btn btn-outline-dark" href="/blog">Back to all posts</a>
+  </nav>
+
+  <!-- ── Booking CTA ──────────────────────────────────── -->
+  <section class="cta-strip" aria-label="Book a free meet and greet">
+    <p class="eyebrow">No commitment · 30 minutes · Free</p>
+    <h2>Meet us first — it's free.</h2>
+    <p>Book a Paws &amp; Chat and introduce us to your pet. We'll answer every question, no pressure, no rush.</p>
+    <a href="/contact" class="btn btn-on-teal">Book a Paws &amp; Chat</a>
+  </section>
+
+</main>
+
+<div id="footer-root"></div>
+
+<script type="module" src="/components/load.js"></script>
+</body>
+</html>

@@ -31,6 +31,9 @@ const ROUTES = {
   '/services': 'src/services.html',
   '/about':    'src/about.html',
   '/contact':  'src/contact.html',
+  // /blog is a page (blog.html) and also a folder of posts (blog/<slug>.html,
+  // served by the extensionless fallback below), so it needs its own route.
+  '/blog':     'src/blog.html',
 };
 
 // On GoDaddy, src/ and public/ are both flattened into public_html/, so a
@@ -75,6 +78,6 @@ const server = http.createServer((req, res) => {
 
 server.listen(PORT, () => {
   console.log(`Dev server → http://localhost:${PORT}`);
-  console.log('  resolves /  /services  /about  /contact');
+  console.log('  resolves /  /services  /about  /contact  /blog  /blog/<post>');
   console.log('  roots: src/ → public/ → project root (mirrors public_html/)');
 });
