@@ -650,12 +650,53 @@ h1, h2, h3, h4 {
 
 .post-footer-nav { text-align: center; margin: 2.5rem auto 4.5rem; padding: 0 2rem; }
 
+/* Data tables in posts (event listings, comparisons). On phones each row
+   becomes a card; every <td> needs a data-label matching its column. */
+.post-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.post-table th {
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--teal-dark);
+  padding: 0 0.75rem 0.6rem 0;
+  border-bottom: 2px solid var(--teal);
+}
+.post-table td {
+  vertical-align: top;
+  padding: 0.85rem 0.75rem 0.85rem 0;
+  border-bottom: 1px solid var(--teal-mist);
+}
+.post-table th:nth-child(1) { width: 27%; }
+.post-table th:nth-child(2) { width: 27%; }
+.post-table th:nth-child(3) { width: 27%; }
+.post-table td:first-child { font-weight: 700; }
+.post-table td:last-child  { color: var(--warm-gray); }
+
 @media (max-width: 600px) {
   .post-header { padding: 2rem 1.25rem 5rem; }
   .post-hero-photo { padding: 0 1.25rem; margin-top: -3rem; }
   .post-body { padding: 0 1.25rem; margin-top: 2.5rem; }
   .post-body blockquote { font-size: 1.25rem; }
   .post-author-box { width: calc(100% - 2.5rem); flex-direction: column; }
+
+  .post-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .post-table, .post-table tbody, .post-table tr, .post-table td { display: block; }
+  .post-table tr {
+    padding: 1rem 1.1rem;
+    background: var(--parchment);
+    border-radius: 12px;
+  }
+  .post-table tr + tr { margin-top: 0.75rem; }
+  .post-table td { padding: 0.15rem 0; border: 0; white-space: normal; }
+  .post-table td:first-child { white-space: normal; color: var(--teal-dark); font-size: 0.85rem; }
+  .post-table td:nth-child(2) { font-family: Georgia, serif; font-weight: 700; font-size: 1.05rem; color: var(--ink); }
 }
 
 @media (prefers-reduced-motion: reduce) {

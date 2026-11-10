@@ -34,7 +34,7 @@ dogwalkin/
 │   ├── services.html                 ← Services & Pricing (/services)
 │   ├── about.html                    ← About (/about)
 │   ├── contact.html                  ← Contact & Book (/contact)
-│   ├── blog.html                     ← Blog listing (/blog) — built, not launched
+│   ├── blog.html                     ← Blog listing (/blog) — launched 2026-11-09
 │   ├── blog/
 │   │   └── post-template.html        ← copy to blog/<slug>.html for each post
 │   ├── style.css                     ← shared styles and brand token variables
@@ -48,7 +48,7 @@ dogwalkin/
 │
 ├── public/                           ← mirrors the GoDaddy domain root
 │   ├── .htaccess                     ← clean URLs, canonical host, caching
-│   ├── sitemap.xml                   ← all four pages, canonical dogwalkin.com URLs
+│   ├── sitemap.xml                   ← four pages + /blog and each post, canonical dogwalkin.com URLs
 │   └── robots.txt                    ← Allow: / + sitemap reference
 │
 ├── .gitignore                        ← includes .env, node_modules, screenshots
@@ -124,7 +124,7 @@ Global nav bar  (sticky, all pages)
 ├── /about           About
 └── /contact         Contact & Book
 
-/blog              Blog listing (built 2026-11-06, not linked yet — see Blog below)
+/blog              Blog listing (launched 2026-11-09, in nav + footer — see Blog below)
 └── /blog/<slug>     Individual posts
 
 Global footer   (all pages)
@@ -238,7 +238,7 @@ Cat visits include: feeding, litter box cleaning, playtime, medicine, brushing, 
 
 ### `/blog` — Blog
 
-Built 2026-11-06, **not launched**: left out of the nav, footer, and sitemap, and both pages carry `noindex` until real posts exist.
+Built 2026-11-06, **launched 2026-11-09** with the first post, `/blog/dog-events-manhattan-november` (author: Alvin Daniel). Blog is in the nav, footer and sitemap; `noindex` is gone from the listing and the post (the template keeps it). Sample cards are deleted. The "More from the blog" grid markup sits in a comment in `src/blog.html` until a second post exists.
 
 **Decisions (2026-11-06):** a listing page plus a post template. Posts are hand-written HTML: no CMS, no JSON feed, no build step. The listing shows sample cards (gold "Sample" badge, `class="is-sample"`) that are deleted as real posts go in.
 
@@ -253,7 +253,10 @@ Built 2026-11-06, **not launched**: left out of the nav, footer, and sitemap, an
 - Every post: exactly one H1 (the title, with a service and a neighborhood keyword where natural), full SEO head tags, LocalBusiness + BlogPosting JSON-LD, real photos only.
 - `/blog` is both a page and a folder, so `public/.htaccess` and `serve.mjs` each have an explicit `/blog` rule.
 - Shared blog styles live at the end of `src/style.css`.
-- **To launch:** remove `noindex` from `src/blog.html`, add a Blog link to `components/nav.html` and `components/footer.html`, add `/blog` and each post URL to `public/sitemap.xml`, delete the sample cards.
+- **Each new post:** copy the template, fill every placeholder, delete its `noindex`, put it in the featured slot of `src/blog.html` (moving the previous one into the grid), and add its URL with `lastmod` to `public/sitemap.xml`.
+- `/blog/dog-events-manhattan-november` is an annual post: update the same URL each November and recheck every event with its organizer within 48 hours of publishing.
+- Post copy follows the live site, not drafts: service area is the four neighborhoods, and holidays are +$10 (confirmed 2026-11-09). Posts link to `/services` for rates.
+- Event tables use `class="post-table"` (styles at the end of `src/style.css`); every `<td>` needs a `data-label`.
 
 ---
 

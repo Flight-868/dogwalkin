@@ -45,4 +45,6 @@ const path = location.pathname.replace(/\/$/, '') || '/';
 document.querySelectorAll('#site-nav .nav-links a:not(.nav-cta)').forEach(a => {
   const href = a.getAttribute('href').replace(/\/$/, '') || '/';
   if (href === path) a.setAttribute('aria-current', 'page');
+  // Blog posts (/blog/<slug>) highlight the Blog link too
+  else if (href === '/blog' && path.startsWith('/blog/')) a.setAttribute('aria-current', 'true');
 });
