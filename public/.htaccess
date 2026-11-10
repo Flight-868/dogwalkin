@@ -9,6 +9,14 @@
 Options -Indexes
 DirectoryIndex index.html
 
+# /blog is both a page (blog.html) and a real folder of posts (blog/).
+# With DirectorySlash on, mod_dir 301s /blog to /blog/ before the rewrite
+# rules below can serve blog.html, and /blog/ then 403s (no index file,
+# no listings). Confirmed live 2026-11-10, the day blog/ was first uploaded.
+# Turning it off is safe here: nothing links to a bare folder, and
+# Options -Indexes still blocks listings.
+DirectorySlash Off
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
@@ -33,11 +41,14 @@ DirectoryIndex index.html
 
   # ── Blog ───────────────────────────────────────────────────────────
   # /blog is both a page (blog.html) and a real directory of posts
-  # (blog/<slug>.html). Without these two rules Apache's DirectorySlash
-  # would 301 /blog to /blog/ and then find no index file there. Posts at
+  # (blog/<slug>.html); see DirectorySlash Off above. Matched on
+  # REQUEST_URI because a request for the blog/ folder itself is not
+  # reliably seen as "blog/" by a pattern in this file. Posts at
   # /blog/<slug> are served by the clean-URL rule at the bottom.
-  RewriteRule ^blog/$ /blog [R=301,L]
-  RewriteRule ^blog$ blog.html [L]
+  RewriteCond %{REQUEST_URI} ^/blog/$
+  RewriteRule ^ /blog [R=301,L]
+  RewriteCond %{REQUEST_URI} ^/blog$
+  RewriteRule ^ blog.html [L]
 
   # ── Strip trailing slashes (except the root) ───────────────────────
   # /about/ → /about. Skips real directories so brand_assets/ still works.
