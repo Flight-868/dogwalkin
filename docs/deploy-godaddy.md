@@ -11,7 +11,8 @@ folder names.
 
 | From the repo | Goes to | Notes |
 |---------------|---------|-------|
-| `src/*.html` | `public_html/` | The four pages, at the root — not in a subfolder |
+| `src/*.html` | `public_html/` | The pages (including `blog.html`), at the root — not in a subfolder |
+| `src/blog/` | `public_html/blog/` | Blog posts. Keeps its folder name. Skip `post-template.html` (noindex, not linked) |
 | `src/style.css` | `public_html/style.css` | |
 | `src/components/` | `public_html/components/` | Keeps its folder name |
 | `brand_assets/` | `public_html/brand_assets/` | Whole folder, keeps its name |
@@ -22,7 +23,8 @@ Resulting structure:
 ```
 public_html/
 ├── .htaccess
-├── index.html  services.html  about.html  contact.html
+├── index.html  services.html  about.html  contact.html  blog.html
+├── blog/          <slug>.html — one file per post
 ├── style.css
 ├── components/    nav.html  footer.html  load.js
 ├── brand_assets/  *.svg  og-image.jpg  colors.css  photos/
